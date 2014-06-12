@@ -125,11 +125,15 @@
         <option value="$PROJECT_DIR$/controllers/passport.js" />
         <option value="$PROJECT_DIR$/routes/signup.js" />
         <option value="$PROJECT_DIR$/config/database.js" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/config/passport.js" />
         <option value="$PROJECT_DIR$/controllers/getProfile.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/controllers/getProjects.js" />
+=======
+        <option value="$PROJECT_DIR$/app.js" />
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
         <option value="$PROJECT_DIR$/routes/index.js" />
       </list>
     </option>
@@ -517,14 +521,21 @@
       <workItem from="1402240559735" duration="2097000" />
       <workItem from="1402406558958" duration="3818000" />
       <workItem from="1402529816563" duration="1991000" />
+<<<<<<< HEAD
       <workItem from="1402567572262" duration="245000" />
       <workItem from="1402577566866" duration="1446000" />
       <workItem from="1402581305367" duration="3166000" />
+=======
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="12763000" />
+=======
+    <option name="totallyTimeSpent" value="7906000" />
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="-1" width="1368" height="747" extended-state="0" />
@@ -583,6 +594,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1368">
           <caret line="11" column="38" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="38" />
           <folding />
@@ -743,6 +755,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
+=======
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
           <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
           <folding />
@@ -865,10 +879,17 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/controllers/getProfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="846">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/routes/signup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="216">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
           <folding />
         </state>
       </provider>
@@ -881,6 +902,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.0" vertical-offset="0" max-vertical-offset="396">
@@ -893,14 +915,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="918">
           <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
+=======
+    <entry file="file://$PROJECT_DIR$/config/database.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/config/passport.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.68827933" vertical-offset="444" max-vertical-offset="1980">
           <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+=======
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8695652" vertical-offset="72" max-vertical-offset="612">
+          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+>>>>>>> 9b0f22300be9362f7ab53b758b315cddc1931407
           <folding />
         </state>
       </provider>
