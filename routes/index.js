@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+//var getProfile = require('../controllers/getProfile');
+var getProjects = require('../controllers/getProjects');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -24,5 +26,15 @@ router.route('/login').post(passport.authenticate('local-login', {
     .get(function(req, res){
         res.send("login");
     });
+
+//router.route('/profile').get(function(req, res){
+//    if(req.isAuthenticated())
+//        getProfile(req, res);
+//});
+
+router.route('/projects').post(function(req, res){
+    //if(req.isAuthenticated())
+        getProjects(req, res);
+})
 
 module.exports = router;

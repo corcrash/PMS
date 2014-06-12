@@ -1,12 +1,9 @@
 var mysql = require("mysql");
 
-module.exports = function(){
-    mysql.createConnection({
-        host     : 'localhost',
-        user     : 'root',
-        password : 'netmage'
-    });
-
-    mysql.query('USE pms');
-}
+module.exports = mysql.createPool({
+    connectionLimit : 10,
+    host: 'localhost',
+    user: 'root',
+    password: 'netmage'
+});
 
