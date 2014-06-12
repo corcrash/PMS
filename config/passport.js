@@ -18,7 +18,7 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        mysql.query("select * from users where id = "+id,function(err,rows){
+        mysql.query("select * from `pms`.`users` where id = "+id,function(err,rows){
             done(err, rows[0]);
         });
     });
@@ -40,7 +40,7 @@ module.exports = function(passport) {
 
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            mysql.query("select * from users where email = '"+email+"'",function(err,rows){
+            mysql.query("select * from `pms`.`users` where email = '"+email+"'",function(err,rows){
                 console.log(rows);
                 console.log("above row object");
                 if (err)
@@ -56,7 +56,7 @@ module.exports = function(passport) {
                     newUserMysql.email    = email;
                     newUserMysql.password = password; // use the generateHash function in our user model
 
-                    var insertQuery = "INSERT INTO users ( email, password ) values ('" + email +"','"+ password +"')";
+                    var insertQuery = "INSERT INTO `pms`.`users` ( email, password ) values ('" + email +"','"+ password +"')";
                     console.log(insertQuery);
                     mysql.query(insertQuery,function(err,rows){
                         newUserMysql.id = rows.insertId;
@@ -81,7 +81,9 @@ module.exports = function(passport) {
         },
         function(req, email, password, done) { // callback with email and password from our form
 
-            mysql.query("SELECT * FROM `users` WHERE `email` = '" + email + "'",function(err,rows){
+            console.log(email);
+            console.log(password);
+            mysql.query("SELECT * FROM `pms`.`users` WHERE `email` = '" + email + "'", function(err,rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {
