@@ -27,6 +27,11 @@ router.route('/login').post(passport.authenticate('local-login', {
         res.send("login");
     });
 
+router.rout('/logout').get(function(req, res){
+    req.logout();
+    res.redirect('/');
+})
+
 router.route('/profile').get(function(req, res){
     //if(req.isAuthenticated())
         getProfile(req, res);
