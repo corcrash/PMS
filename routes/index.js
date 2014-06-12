@@ -29,7 +29,7 @@ router.route('/login').post(passport.authenticate('local-login', {
         res.send("login");
     });
 
-router.rout('/logout').get(function(req, res){
+router.route('/logout').get(function(req, res){
     req.logout();
     res.redirect('/');
 })
