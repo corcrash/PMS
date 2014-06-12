@@ -1,9 +1,15 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
+<<<<<<< HEAD
 var mysql = require("../config/database");
 
 module.export = function (req, res) {
+=======
+var mysql = require ("../config/database");
+
+module.exports = function (req,res){
+>>>>>>> d67ff44774caddd529c69d9194d8095cd7605849
 
     var id = req.user.id;
     if (id = undefined) {
@@ -43,6 +49,11 @@ module.export = function (req, res) {
                 message: "package_not_recieved"
             }
         }
+    })
 
+<<<<<<< HEAD
     });
 }
+=======
+};
+>>>>>>> d67ff44774caddd529c69d9194d8095cd7605849
