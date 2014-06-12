@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var getProfile = require('../controllers/getProfile');
-var getProjects = require('../controllers/getProjects');
+var editProfile = require('../controllers/editProfile');
+var getProjects = require('../controllers/getProject');
+
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -35,11 +37,13 @@ router.rout('/logout').get(function(req, res){
 router.route('/profile').get(function(req, res){
     //if(req.isAuthenticated())
         getProfile(req, res);
+}).post(function(req,res){
+        editProfile(req,res);
 });
 
 router.route('/projects').post(function(req, res){
     //if(req.isAuthenticated())
         getProjects(req, res);
-})
+});
 
 module.exports = router;

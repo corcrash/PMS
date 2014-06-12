@@ -1,27 +1,35 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
-var mysql = require ('../config/database.js')
+var mysql = require ('../config/database.js');
 
 module.exports = function (req,res){
 
-    var user_id = req.session.id;
+    var id = req.user.id;
+    if(id = undefined){
+        console.error("user_id_not_valid");
+        return;
+    }
 
     mysql.getConnection(function (err, connection) {
         if (err) {
             console.error(err);
             return;
         }
-        connection.query("SELECT * FROM USERS WHERE ID = ?", [id], function (err, result) {
+        //console.log(id);
+        connection.query("SELECT * FROM pms.users WHERE id = ?", [id], function (err, result) {
             var prom;
             if (err) {
                 console.error(err);
+                return;
             }
 
-            var displayName = result.row['display_name'];
-            var email = result.row['email'];
-            var description = result.row['description'];
-            var avatar = result.row['avatar'];
+            //console.log(result);
+
+            var displayName = result[0].display_name;
+            var email = result[0].email;
+            var description = result[0].description;
+            var avatar = result[0].avatar;
 
             prom = {
                 displayName: displayName,
@@ -34,5 +42,4 @@ module.exports = function (req,res){
         })
 
     });
-
 }
