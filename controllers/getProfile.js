@@ -1,21 +1,24 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
-var mysql = require ('../config/database.js')
+var mysql = require ('../config/database.js');
 
-module exports = function (req,res){
+module.exports = function (req,res){
 
-    var id = req.session.id;
+    var id = req.user.id;
+    if(id = undefined)
+        console.error("ID is undefined!");
 
     mysql.getConnection(function (err, connection) {
         if (err) {
             console.error(err);
-            return;
+            return
         }
         connection.query("SELECT * FROM USERS WHERE ID = ?", [id], function (err, result) {
             var prom;
             if (err) {
                 console.error(err);
+                return
             }
 
             var displayName = result.row['display_name'];
@@ -29,7 +32,7 @@ module exports = function (req,res){
                 description: description,
                 avatar: avatar
             };
-            res.send(nesto);
+            res.send(prom);
             connection.release();
         })
 
