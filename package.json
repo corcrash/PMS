@@ -20,6 +20,8 @@
         "async": "latest",
         "nodemailer": "latest",
         "simple-recaptcha": "latest",
-        "node-uuid": "latest"
+        "node-uuid": "latest",
+        "cookie-session": "latest",
+        "express-session": "latest"
     }
 }

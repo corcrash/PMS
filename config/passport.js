@@ -1,8 +1,6 @@
 var LocalStrategy   = require('passport-local').Strategy;
 
-var mysql = require('../config/database');
-
-connection.query('USE pms');
+var mysql = require('./database');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -20,7 +18,7 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        connection.query("select * from users where id = "+id,function(err,rows){
+        mysql.query("select * from users where id = "+id,function(err,rows){
             done(err, rows[0]);
         });
     });
@@ -42,7 +40,7 @@ module.exports = function(passport) {
 
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            connection.query("select * from users where email = '"+email+"'",function(err,rows){
+            mysql.query("select * from users where email = '"+email+"'",function(err,rows){
                 console.log(rows);
                 console.log("above row object");
                 if (err)
@@ -60,7 +58,7 @@ module.exports = function(passport) {
 
                     var insertQuery = "INSERT INTO users ( email, password ) values ('" + email +"','"+ password +"')";
                     console.log(insertQuery);
-                    connection.query(insertQuery,function(err,rows){
+                    mysql.query(insertQuery,function(err,rows){
                         newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
@@ -83,7 +81,7 @@ module.exports = function(passport) {
         },
         function(req, email, password, done) { // callback with email and password from our form
 
-            connection.query("SELECT * FROM `users` WHERE `email` = '" + email + "'",function(err,rows){
+            mysql.query("SELECT * FROM `users` WHERE `email` = '" + email + "'",function(err,rows){
                 if (err)
                     return done(err);
                 if (!rows.length) {
@@ -102,17 +100,4 @@ module.exports = function(passport) {
 
 
         }));
-
-    // route middleware to make sure a user is logged in
-    function isLoggedIn(req, res, next) {
-
-        // if user is authenticated in the session, carry on
-        if (req.isAuthenticated())
-            return next();
-
-        // if they aren't redirect them to the home page
-        res.redirect('/');
-    }
-
-
 };
