@@ -12,19 +12,22 @@ module.exports = function (req,res){
     mysql.getConnection(function (err, connection) {
         if (err) {
             console.error(err);
-            return
+            return;
         }
-        connection.query("SELECT * FROM USERS WHERE ID = ?", [id], function (err, result) {
+        console.log(id);
+        connection.query("SELECT * FROM pms.users WHERE id = ?", [id], function (err, result) {
             var prom;
             if (err) {
                 console.error(err);
-                return
+                return;
             }
 
-            var displayName = result.row['display_name'];
-            var email = result.row['email'];
-            var description = result.row['description'];
-            var avatar = result.row['avatar'];
+            console.log(result);
+
+            var displayName = result[0].display_name;
+            var email = result[0].email;
+            var description = result[0].description;
+            var avatar = result[0].avatar;
 
             prom = {
                 displayName: displayName,
