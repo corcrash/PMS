@@ -4,9 +4,14 @@
 
 //prima comment_id,text; vraca JSON{status, message}
     //TODO: videti kako cemo da saljemo text za updatovanje
-var mysql = require('../cofig/database');
+var mysql = require("../config/database");
 
 module.exports = function(req,res){
+
+    if (req.user.id === undefined){
+        console.error("user_id_not_valid");
+        return;
+    }
 
     var comment_id = req.body.comment_id;
     var text =  req.body.text;

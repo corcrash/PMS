@@ -4,6 +4,7 @@ var passport = require('passport');
 var getProfile = require('../controllers/getProfile');
 var editProfile = require('../controllers/editProfile');
 var getProjects = require('../controllers/getProject');
+//var getMembers = require ('../controllers/getMembers');
 
 
 /* GET home page. */
