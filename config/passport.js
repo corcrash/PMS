@@ -18,7 +18,7 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        mysql.query("select * from `pms`.`users` where id = "+id,function(err,rows){
+        mysql.query("select * from `pms`.`users` where id = ?", [id],function(err,rows){
             done(err, rows[0]);
         });
     });

@@ -1,12 +1,12 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
-var mysql = require("../config/database");
+var mysql = require ("../config/database");
 
 module.exports = function (req,res){
 
     var id = req.user.id;
-    if (id = undefined) {
+    if(id === undefined) {
         console.error("user_id_not_valid");
         return;
     }
@@ -17,12 +17,12 @@ module.exports = function (req,res){
             return;
         }
         //console.log(id);
-        if (!(req.body.userInfo == undefined)) {
+        if (!(req.body.userInfo === undefined)) {
             var user_disp = req.body.userInfo.displayName;
             var user_avatar = req.body.userInfo.avatar;
             var user_desc = req.body.userInfo.description;
 
-            connection.query("INSERT INTO pms ( pms.avatar, pms.description, pms.display_name )" +
+            connection.query("UPDATE pms ( pms.avatar, pms.description, pms.display_name )" +
                 " VALUES (?,?,?)", [user_avatar, user_desc, user_disc], function (err, result) {
                 if (err) {
                     console.error(err);
@@ -36,6 +36,8 @@ module.exports = function (req,res){
 
                 res.send(status);
             })
+
+            connection.release();
         }
         else {
             var status = {
@@ -43,5 +45,6 @@ module.exports = function (req,res){
                 message: "package_not_recieved"
             }
         }
-    });
-}
+    })
+
+};
