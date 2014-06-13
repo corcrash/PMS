@@ -7,16 +7,12 @@ var getProjects = require('../controllers/getProject');
 
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/login', function(req, res) {
   res.render('login', { message: req.flash('loginMessage') });
 });
 
-router.get('/index', isLoggedIn, function(req,res){
+router.get('/', isLoggedIn, function(req,res){
     res.render('index');
-});
-
-router.get('/login', function(req,res){
-    res.render('login');
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
@@ -30,8 +26,8 @@ router.get('/signup', function(req, res){
 });
 
 router.post('/login', passport.authenticate('local-login', {
-    successRedirect : '/index', // redirect to the secure profile section
-    failureRedirect : '/', // redirect back to the signup page if there is an error
+    successRedirect : '/', // redirect to the secure profile section
+    failureRedirect : '/login', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
 }));
 
@@ -64,7 +60,7 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }
 
 module.exports = router;

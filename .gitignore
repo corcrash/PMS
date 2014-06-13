@@ -32,4 +32,4 @@ node_modules
 *.iml
 *.iws
 
-./config/database.js
+config/database.js
