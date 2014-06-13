@@ -1,15 +1,9 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
-<<<<<<< HEAD
 var mysql = require("../config/database");
 
-module.export = function (req, res) {
-=======
-var mysql = require ("../config/database");
-
 module.exports = function (req,res){
->>>>>>> d67ff44774caddd529c69d9194d8095cd7605849
 
     var id = req.user.id;
     if (id = undefined) {
@@ -23,7 +17,7 @@ module.exports = function (req,res){
             return;
         }
         //console.log(id);
-        if (!(req.body.userInfo = undefined)) {
+        if (!(req.body.userInfo == undefined)) {
             var user_disp = req.body.userInfo.displayName;
             var user_avatar = req.body.userInfo.avatar;
             var user_desc = req.body.userInfo.description;
@@ -49,11 +43,5 @@ module.exports = function (req,res){
                 message: "package_not_recieved"
             }
         }
-    })
-
-<<<<<<< HEAD
     });
 }
-=======
-};
->>>>>>> d67ff44774caddd529c69d9194d8095cd7605849
