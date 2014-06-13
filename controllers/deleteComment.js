@@ -9,6 +9,11 @@ var mysql = require ('../config/database');
 
 module.extends = function(req,res){
 
+    if (req.user.id === undefined){
+        console.error("user_id_not_valid");
+        return;
+    }
+
     var comment_id = req.body.comment_id;
     if (comment_id === undefined){
         console.error("comment_id_not_recieved");
@@ -30,7 +35,7 @@ module.extends = function(req,res){
             var re = {
                 status: true,
                 messege: "comment_deleted"
-            }
+            };
 
             res.send(re);
         });

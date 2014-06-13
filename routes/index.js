@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var getProfile = require('../controllers/getProfile');
 var editProfile = require('../controllers/editProfile');
-var getProjects = require('../controllers/getProjects');
+var getProjects = require('../controllers/getProject');
 
 
 /* GET home page. */
@@ -40,7 +40,7 @@ router.get('/logout', isLoggedIn, function(req, res){
     res.redirect('/');
 })
 
-router.post('/getProfile', isLoggedIn, function(req, res){
+router.get('/profile', isLoggedIn, function(req, res){
         getProfile(req, res);
 });
 
@@ -48,8 +48,8 @@ router.post('/profile', isLoggedIn, function(req,res){
         editProfile(req,res);
 });
 
-router.post('/getProjects', isLoggedIn, function (req, res) {
-    getProjects(req, res);
+router.post('/projects', isLoggedIn, function(req, res){
+        getProjects(req, res);
 });
 
 // Funkcija koja proverava da li je korisnik ulogovan
