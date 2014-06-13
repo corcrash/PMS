@@ -31,13 +31,15 @@ module.exports = function (req,res){
             var description = result[0].description;
             var avatar = result[0].avatar;
 
-            prom = {
-                displayName: displayName,
-                email: email,
-                description: description,
-                avatar: avatar
-            };
-            res.send(prom);
+//            prom = {
+//                displayName: displayName,
+//                email: email,
+//                description: description,
+//                avatar: avatar
+//            };
+//            res.send(prom);
+            res.render('index', {displayName: displayName, email: email, description: description, avatar: avatar});
+
             connection.release();
         })
 

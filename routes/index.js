@@ -40,7 +40,7 @@ router.get('/logout', isLoggedIn, function(req, res){
     res.redirect('/');
 })
 
-router.get('/profile', isLoggedIn, function(req, res){
+router.post('/getProfile', isLoggedIn, function(req, res){
         getProfile(req, res);
 });
 
