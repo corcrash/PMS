@@ -11,48 +11,60 @@ router.get('/', function(req, res) {
   res.render('login', { message: req.flash('loginMessage') });
 });
 
-router.route('/index').get(function(req,res){
+router.get('/index', isLoggedIn, function(req,res){
     res.render('index');
 });
 
-router.route('/login').get(function(req,res){
+router.get('/login', function(req,res){
     res.render('login');
 });
 
-router.route('/signup').post(passport.authenticate('local-signup', {
+router.post('/signup', passport.authenticate('local-signup', {
     successRedirect : '/', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
-}))
-    .get(function(req, res){
-        //res.send("signup");
-        res.render('signup');
-    });
+}));
 
-router.route('/login').post(passport.authenticate('local-login', {
+router.get('/signup', function(req, res){
+    res.render('signup');
+});
+
+router.post('/login', passport.authenticate('local-login', {
     successRedirect : '/index', // redirect to the secure profile section
     failureRedirect : '/', // redirect back to the signup page if there is an error
     failureFlash : true // allow flash messages
-}))
-    .get(function(req, res){
-        res.send("login");
-    });
+}));
 
-router.route('/logout').get(function(req, res){
+router.get('/login', function(req, res){
+    res.send("login");
+});
+
+router.get('/logout', isLoggedIn, function(req, res){
     req.logout();
     res.redirect('/');
 })
 
-router.route('/profile').get(function(req, res){
-    //if(req.isAuthenticated())
+router.get('/profile', isLoggedIn, function(req, res){
         getProfile(req, res);
-}).post(function(req,res){
+});
+
+router.post('/profile', isLoggedIn, function(req,res){
         editProfile(req,res);
 });
 
-router.route('/projects').post(function(req, res){
-    //if(req.isAuthenticated())
+router.post('/projects', isLoggedIn, function(req, res){
         getProjects(req, res);
 });
+
+// Funkcija koja proverava da li je korisnik ulogovan
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
 
 module.exports = router;
