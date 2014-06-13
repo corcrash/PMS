@@ -38,7 +38,7 @@ module.exports = function (req,res){
 //                avatar: avatar
 //            };
 //            res.send(prom);
-            res.render('index', {displayName: displayName, email: email, description: description, avatar: avatar});
+            res.render('profile', {displayName: displayName, email: email, description: description, avatar: avatar});
 
             connection.release();
         })
