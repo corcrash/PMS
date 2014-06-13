@@ -1,13 +1,18 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
+
+//prima task_id ( id taska na koji je komentarisano )
+//i broj komentara koji treba da se pokaze, vraca sortiran
+//TODO: zavrsiti - nisi ni poceo nemo' se cesas po glavu i pitas gde si stao
 var mysql = require('../config/database');
 
-//TODO: doraditi - sacekaj Mitu
 module.exports = function (req,res){
 
     var id = req.body.task_id;
-    if (id = undefined) {
+    var num = req.body.num;
+
+    if (id === undefined) {
         console.error("task_id_not_valid");
         return;
     }

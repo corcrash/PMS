@@ -1,21 +1,22 @@
 /**
  * Created by aleksandar on 12.6.14..
  */
-var mysql = require ('../config/database.js');
+var mysql = require ('../config/database');
 
 module.exports = function (req,res){
 
     var id = req.user.id;
-    if(id = undefined){
+    if(id === undefined){
         console.error("user_id_not_valid");
         return;
     }
+
     mysql.getConnection(function (err, connection) {
         if (err) {
             console.error(err);
             return;
         }
-        //console.log(id);
+        console.log(id);
         connection.query("SELECT * FROM pms.users WHERE id = ?", [id], function (err, result) {
             var prom;
             if (err) {
@@ -23,7 +24,7 @@ module.exports = function (req,res){
                 return;
             }
 
-            //console.log(result);
+            console.log(result[0]);
 
             var displayName = result[0].display_name;
             var email = result[0].email;

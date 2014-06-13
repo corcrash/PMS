@@ -5,8 +5,8 @@ var mysql = require ('../config/database.js');
 
 module.exports = function (req,res){
 
-    var id = req.user.id;
-    if(id = undefined){
+    var id = req.user.id; // HAHAH, u sl. redu JS postvalja id na undefined!! promenio sam na
+    if(id === undefined){
         console.error("user_id_not_valid");
         return;
     }

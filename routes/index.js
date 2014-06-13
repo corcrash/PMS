@@ -8,9 +8,12 @@ var getProjects = require('../controllers/getProject');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('login', { title: 'Express' });
 });
 
+router.route('/').get(function(req,res){
+    res.render('profile');//za sada
+});
 router.route('/signup').post(passport.authenticate('local-signup', {
     successRedirect : '/', // redirect to the secure profile section
     failureRedirect : '/signup', // redirect back to the signup page if there is an error
