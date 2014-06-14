@@ -8,3 +8,28 @@ pms.controller('projectListController', function ($scope, $http) {
         });
     });
 });
+
+// jQuery ######################################################################
+
+$(document).ready(function(){
+    bindClicks();
+});
+
+function bindClicks(){
+    $("#displayProfile").click(showProfileModal);
+}
+
+function saveProfile(){
+    var profileData = {
+        display_name: $("#profileDisplayName").val(),
+        description: $("#prodileDescription").val(),
+        avatar: $("#profileAvatar").attr("src"),
+    }
+}
+
+function showProfileModal(){
+    $.post('/getProfile', function (data){
+        $("#profileModalBody").html(data);
+        $("#profileModal").modal({keyboard: true});
+    })
+}
