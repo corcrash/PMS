@@ -1,45 +1,30 @@
-/**
- * Created by aleksandar on 12.6.14..
- */
-var mysql = require ('../config/database.js');
+var mysql = require('../config/database');
 
-module.exports = function (req,res){
-
-    var id = req.user.id; // HAHAH, u sl. redu JS postvalja id na undefined!! promenio sam na
-    if(id === undefined){
-        console.error("user_id_not_valid");
-        return;
-    }
-
+module.exports = function (req, res) {
     mysql.getConnection(function (err, connection) {
         if (err) {
             console.error(err);
             return;
         }
-        //console.log(id);
-        connection.query("SELECT * FROM pms.users WHERE id = ?", [id], function (err, result) {
-            var prom;
+        connection.query("SELECT * FROM pms.projects WHERE user_id=? AND id=?", [connection.escape(req.user.id), connection.escape(req.body.projectId)], function (err, rows) {
             if (err) {
-                console.error(err);
+                console.log(err);
                 return;
             }
 
-            //console.log(result);
+            if (rows) {
+                var project = {
+                    id: row.id,
+                    name: row.name,
+                    description: row.description,
+                    create_time: row.create_time
+                }
+            }
 
-            var displayName = result[0].display_name;
-            var email = result[0].email;
-            var description = result[0].description;
-            var avatar = result[0].avatar;
+            res.send(project);
 
-            prom = {
-                displayName: displayName,
-                email: email,
-                description: description,
-                avatar: avatar
-            };
-            res.send(prom);
-            connection.release();
-        })
+        });
 
+        connection.release();
     });
 }

@@ -20,9 +20,7 @@ module.exports = function (req, res) {
                     rows.forEach(function (row) {
                         var project = {
                             id: row.id,
-                            name: row.name,
-                            description: row.description,
-                            create_time: row.create_time
+                            name: row.name
                         }
                         projects.push(project);
                     });
