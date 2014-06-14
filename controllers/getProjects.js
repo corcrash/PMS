@@ -10,7 +10,7 @@ module.exports = function (req, res) {
                 console.error(err);
                 return;
             }
-            connection.query("SELECT * FROM pms.projects WHERE user_id = " + connection.escape(req.user.id), function (err, rows) {
+            connection.query("SELECT * FROM pms.project WHERE user_id = " + connection.escape(req.user.id), function (err, rows) {
                 if (err) {
                     console.log(err);
                     return;
@@ -19,6 +19,7 @@ module.exports = function (req, res) {
                 if (rows) {
                     rows.forEach(function (row) {
                         var project = {
+                            id: row.id,
                             name: row.name,
                             description: row.description,
                             create_time: row.create_time
