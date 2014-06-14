@@ -19,6 +19,7 @@ module.exports = function (req, res) {
                 if (rows) {
                     rows.forEach(function (row) {
                         var project = {
+                            id: row.id,
                             name: row.name,
                             description: row.description,
                             create_time: row.create_time
