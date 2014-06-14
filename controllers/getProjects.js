@@ -10,7 +10,7 @@ module.exports = function (req, res) {
                 console.error(err);
                 return;
             }
-            connection.query("SELECT * FROM pms.project WHERE user_id = " + connection.escape(req.user.id), function (err, rows) {
+            connection.query("SELECT * FROM pms.projects WHERE user_id = " + connection.escape(req.user.id), function (err, rows) {
                 if (err) {
                     console.log(err);
                     return;
