@@ -8,6 +8,10 @@ module.exports = function (req,res){
     var id = req.user.id;
     if(id === undefined) {
         console.error("user_id_not_valid");
+        res.send({
+            status: false,
+            message: "user_id_not_valid"
+        })
         return;
     }
 
@@ -16,14 +20,11 @@ module.exports = function (req,res){
             console.error(err);
             return;
         }
-        //console.log(id);
-        if (!(req.body.userInfo === undefined)) {
-            var user_disp = req.body.userInfo.displayName;
-            var user_avatar = req.body.userInfo.avatar;
-            var user_desc = req.body.userInfo.description;
+        if (!(req.body.profileInfo == undefined)) {
+            var user_disp = connection.escape(req.body.profileInfo.displayName);
+            var user_desc = connection.escape(req.body.profileInfo.description);
 
-            connection.query("UPDATE pms ( pms.avatar, pms.description, pms.display_name )" +
-                " VALUES (?,?,?)", [user_avatar, user_desc, user_disc], function (err, result) {
+            connection.query("UPDATE pms.users SET display_name=?, description=? WHERE id=?", [user_disp, user_desc, id], function (err, result) {
                 if (err) {
                     console.error(err);
                     return;
@@ -44,6 +45,8 @@ module.exports = function (req,res){
                 status: false,
                 message: "package_not_recieved"
             }
+
+            res.send(status);
         }
     })
 

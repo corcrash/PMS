@@ -31,6 +31,9 @@ module.exports = function (req,res){
             var description = result[0].description;
             var avatar = result[0].avatar;
 
+            if(description == null)
+                description = "";
+
 //            prom = {
 //                displayName: displayName,
 //                email: email,

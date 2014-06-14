@@ -22,6 +22,7 @@
         "simple-recaptcha": "latest",
         "node-uuid": "latest",
         "cookie-session": "latest",
-        "express-session": "latest"
+        "express-session": "latest",
+        "formidable": "latest"
     }
 }

@@ -1,17 +1,23 @@
-<div class="container">
+<div id="profileContainer" class="container">
     <div class="row">
         <!-- left column -->
         <div class="col-md-3">
-            <div class="text-center">
-                <% if(avatar && avatar.length > 0){ %>
+            <form action="/uploadAvatar" method="POST" class="form-horizontal"  id="avatarForm" enctype="multipart/form-data">
+                <div class="text-center">
+                    <% if(avatar && avatar.length > 0){ %>
                     <img src="<%= avatar %>" id="profileAvatar" class="avatar img-circle" alt="avatar">
-                <% } else { %>
+                    <% } else { %>
                     <img src="//placehold.it/100" id="profileAvatar" class="avatar img-circle" alt="avatar">
-                <% } %>
-                <h6>Upload a different photo...</h6>
+                    <% } %>
+                    <div class="form-group">
+                       <input type="file" id="profileAvatarInput" name="avatar" accept="image/png"/>
+                    </div>
 
-                <input type="file" class="form-control">
-            </div>
+                </div>
+                <div class="text-right">
+                    <input id="avatarUploadButton" type="submit" class="btn btn-primary" value="Upload"/>
+                </div>
+            </form>
         </div>
 
         <!-- edit form column -->
@@ -36,21 +42,21 @@
                 <!--</div>-->
                 <!--</div>-->
 
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Password:</label>
+                <!--<div class="form-group">-->
+                <!--<label class="col-md-3 control-label">Password:</label>-->
 
-                    <div class="col-md-4">
-                        <input class="form-control" id="profilePassword" type="password" value="11111122333">
-                    </div>
-                </div>
+                <!--<div class="col-md-4">-->
+                <!--<input class="form-control" id="profilePassword" type="password" value="11111122333">-->
+                <!--</div>-->
+                <!--</div>-->
 
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Confirm password:</label>
+                <!--<div class="form-group">-->
+                <!--<label class="col-md-3 control-label">Confirm password:</label>-->
 
-                    <div class="col-md-4">
-                        <input class="form-control" id="profileConfirmPassword" type="password" value="11111122333">
-                    </div>
-                </div>
+                <!--<div class="col-md-4">-->
+                <!--<input class="form-control" id="profileConfirmPassword" type="password" value="11111122333">-->
+                <!--</div>-->
+                <!--</div>-->
 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Description:</label>
@@ -64,4 +70,3 @@
         </div>
     </div>
 </div>
-<hr>

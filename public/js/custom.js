@@ -11,25 +11,48 @@ pms.controller('projectListController', function ($scope, $http) {
 
 // jQuery ######################################################################
 
-$(document).ready(function(){
+$(document).ready(function () {
+    loadProfile();
     bindClicks();
 });
 
-function bindClicks(){
+function bindClicks() {
     $("#displayProfile").click(showProfileModal);
+    $("#saveProfile").click(saveProfile);
 }
 
-function saveProfile(){
-    var profileData = {
-        display_name: $("#profileDisplayName").val(),
-        description: $("#prodileDescription").val(),
-        avatar: $("#profileAvatar").attr("src"),
-    }
-}
-
-function showProfileModal(){
-    $.post('/getProfile', function (data){
+function loadProfile() {
+    $.post('/getProfile', function (data) {
         $("#profileModalBody").html(data);
-        $("#profileModal").modal({keyboard: true});
-    })
+        $('#avatarForm').ajaxForm(function (data) {
+            if(data.status){
+                $("#profileAvatar").attr('src', data.url);
+            }
+        });
+
+    });
+}
+
+function saveProfile() {
+    var profileData = {
+        displayName: $("#profileDisplayName").val(),
+        description: $("#prodileDescription").val(),
+    }
+
+    $.post('/editProfile', {profileInfo: profileData}).done(function (response) {
+        if (response.status) {
+            $("#saveProfile").popover({animation: true, placement: 'right', trigger: 'manual', content: "Successfully saved the changes!"});
+        }
+        else {
+            $("#saveProfile").popover({animation: true, placement: 'right', trigger: 'manual', content: "Error while saving the changes!"});
+        }
+
+        $("#saveProfile").popover('show');
+    });
+
+    console.log("posted");
+}
+
+function showProfileModal() {
+    $("#profileModal").modal({keyboard: true});
 }
