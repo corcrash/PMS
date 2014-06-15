@@ -6,7 +6,7 @@ module.exports = function (req, res) {
             console.error(err);
             return;
         }
-        connection.query("SELECT * FROM pms.projects WHERE user_id=? AND id=?", [connection.escape(req.user.id), connection.escape(req.body.projectId)], function (err, rows) {
+        connection.query("SELECT * FROM pms.projects WHERE user_id=? AND id=?", [req.user.id, req.body.projectId], function (err, rows) {
             if (err) {
                 console.log(err);
                 return;
@@ -14,16 +14,16 @@ module.exports = function (req, res) {
 
             if (rows) {
                 var project = {
-                    id: row.id,
-                    name: row.name,
-                    description: row.description,
-                    create_time: row.create_time
+                    id: rows[0].id,
+                    name: rows[0].name,
+                    description: rows[0].description,
+                    create_time: rows[0].create_time
                 }
             }
 
             res.send(project);
 
-        });
+        });;
 
         connection.release();
     });
