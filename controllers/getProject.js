@@ -23,7 +23,7 @@ module.exports = function (req, res) {
 
             res.send(project);
 
-        });;
+        });
 
         connection.release();
     });
