@@ -26,8 +26,7 @@ module.exports = function(req,res){
             return;
         }
         connection.query("DELETE * FROM pms.comment" +
-            "WERE id = ?",[connection.escape(comment_id)],
-            function (err,result){
+            "WERE id = ?",[comment_id],function (err,result){
             if (err)
             {
                 console.error("query_failure_comment_delete");

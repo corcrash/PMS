@@ -24,7 +24,8 @@ module.exports = function (req,res){
             var user_disp = req.body.profileInfo.displayName;
             var user_desc = req.body.profileInfo.description;
 
-            connection.query("UPDATE pms.users SET display_name=?, description=? WHERE id=?", [user_disp, user_desc, id], function (err, result) {
+            connection.query("UPDATE pms.users SET display_name=?, description=? WHERE id=?",
+                [user_disp, user_desc, id], function (err, result) {
                 if (err) {
                     console.error(err);
                     return;

@@ -28,8 +28,7 @@ module.exports = function (req,res){
                 "FROM pms.users " +
                 "JOIN pms.projects " +
                 "WHERE user.id = ? " +
-                "ORDER BY users.display_name",
-                [connection.escape(id)],function(err,result) {
+                "ORDER BY users.display_name",[id],function(err,result) {
                 if (err){
                     console.error(err);
                     return;
