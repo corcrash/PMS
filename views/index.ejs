@@ -185,19 +185,19 @@
                         </li>
                     </ul>
                 </div> -->
-                <div ng-controller="tabsController">
-                    <tabset>
-                        <tab ng-repeat="tab in tabs">
-                            <tab-heading>{{tab.title}}<a ng-click="removeTab($index)" href=''><i class="icon-remove"></i></a></tab-heading>
-                            <div ng-bind-html-unsafe='tab.content'></div>
-                        </tab>
-                    </tabset>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" ng-controller="tabsController">
+                        <li ng-repeat="tab in tabs">
+                           <a  href='#t{{tab.id}}' data-toggle="tab">{{tab.title}} <i ng-click="removeTab($index)" class="glyphicon glyphicon-remove"></i></a>
+                        </li>
+                    </ul>
                 </div>
+
                 <!-- Tab Section -->
                 <!-- sadrzaj -->
 
-                <div class="tab-content" ng-controller="projectListController">
-                    <div ng-repeat="project in projects" class="tab-pane" id="p{{project.id}}">
+                <div class="tab-content" ng-controller="tabsController">
+                    <div ng-repeat="tab in tabs" class="tab-pane" id='t{{tab.id}}'>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="row">
