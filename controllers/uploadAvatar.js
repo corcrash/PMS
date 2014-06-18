@@ -10,15 +10,26 @@ module.exports = function (req, res) {
     form.parse(req, function(err, fields, files) {
         console.log(files);
         var tempPath = files.avatar.path;
-        var targetPath = path.resolve('./public/user_data/' + req.user.id + '/avatar.png');
+        var extension = path.extname(files.avatar.name).toLowerCase();
+        var targetPath = path.resolve('./public/user_data/' + req.user.id + '/avatar' + extension);
 
-        if (path.extname(files.avatar.name).toLowerCase() === '.png') {
+        if(files.avatar.size > 524288)
+        {
+            res.send({
+                status: false,
+                message: "image_too_big"
+            });
+
+            return;
+        }
+
+        if (extension === '.png' || extension === '.jpg') {
             if(!fs.existsSync('./public/user_data/' + req.user.id))
                 fs.mkdirSync('./public/user_data/' + req.user.id);
 
             fs.rename(tempPath, targetPath, function (err) {
                 if (err) throw err;
-                editProfile(req, res);
+                editProfile(req, res, extension);
             });
         } else {
             fs.unlink(tempPath, function () {
@@ -35,7 +46,7 @@ module.exports = function (req, res) {
 //
 }
 
-function editProfile(req, res) {
+function editProfile(req, res, extension) {
     var id = req.user.id;
     if (id === undefined) {
         console.error("user_id_not_valid");
@@ -47,7 +58,7 @@ function editProfile(req, res) {
             console.error(err);
             return;
         }
-        var user_avatar = './user_data/' + req.user.id + '/avatar.png';
+        var user_avatar = './user_data/' + req.user.id + '/avatar' + extension;
 
         connection.query("UPDATE pms.users SET avatar=? WHERE id=?", [user_avatar, id], function (err) {
             if (err) {

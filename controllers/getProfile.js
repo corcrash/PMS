@@ -17,8 +17,9 @@ module.exports = function (req,res){
             return;
         }
         console.log(id);
-        connection.query("SELECT * FROM pms.users WHERE id = ?", [id], function (err, result) {
-            var prom;
+        connection.query("SELECT * FROM pms.users WHERE id = ?", [connection.escape(id)],
+            function (err, result) {
+            //var prom;
             if (err) {
                 console.error(err);
                 return;
@@ -41,7 +42,12 @@ module.exports = function (req,res){
 //                avatar: avatar
 //            };
 //            res.send(prom);
-            res.render('profile', {displayName: displayName, email: email, description: description, avatar: avatar});
+
+            res.render('profile', {
+                displayName: displayName,
+                email: email,
+                description: description,
+                avatar: avatar});
 
             connection.release();
         })
