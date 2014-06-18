@@ -189,7 +189,7 @@
                     <tabset>
                         <tab ng-repeat="tab in tabs">
                             <tab-heading>{{tab.title}}<a ng-click="removeTab($index)" href=''><i class="icon-remove"></i></a></tab-heading>
-                            <div ng-bind-html-unsafe='tab.content'></div>
+                            <div>{{tab.content}}</div>
                         </tab>
                     </tabset>
                 </div>
