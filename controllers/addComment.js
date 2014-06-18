@@ -15,7 +15,6 @@ module.exports = function(res,req){
         console.error("data_not_valid");
         return;
     }
-    var text = req.body.commentText;
 
     mysql.getConnection(function(err,connection){
         if(err){
