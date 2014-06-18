@@ -63,7 +63,7 @@ module.exports = function (req,res) {
         var paket = [];
         for (var i = 0; i < paket_kom.length; i++) {
             paket[i] = merge(paket_kom[i], paket_user[i]);
-        };
+        }
             res.send(paket);
             connection.release();
 
