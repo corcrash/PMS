@@ -44,34 +44,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-    <div id="wrapper">
-
-        <!-- <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0"> -->
-            <div class="navbar-default navbar-static-side" role="navigation">
-                <div class="sidebar-collapse">
-                    <ul class="nav" id="side-menu" ng-controller="projectListController">
-                        <li ng-repeat="project in projects" ng-click="doStuff($index)" class="doStuff">
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> <%= user%><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="javascript:;" id="displayProfile">Profile</a>
-                                </li>
-                                <li>
-                                    <a href="/logout">Log out</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
-                    <a href="#">Help</a>
-                    <!-- /#side-menu -->
-                </div>
-                <!-- /.sidebar-collapse -->
-=======
 <!-- New project Modal -->
 <div class="modal fade" id="newProjectModal" tabindex="-1" role="dialog" aria-labelledby="newProjectModalLabel"
      aria-hidden="true">
@@ -80,43 +52,12 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">New project</h4>
->>>>>>> origin/master
             </div>
             <div class="modal-body" id="newProjectModalBody">
                 <form class="form-horizontal" role="form">
 
-<<<<<<< HEAD
-        <div id="page-wrapper">
-            <!-- <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
-                </div>
-                  /.col-lg-12 
-            </div> -->
-
-            <!-- Tab navigation -->
-
-            <div class="row">
-                <div class="col-lg-12">
-                   <!--  <div class="tabbable">
-                            <ul class="nav nav-tabs" ng-controller="projectListController" id="myTab">
-                                <li ng-repeat="project in projects" >
-                                    <a href="#p{{project.id}}" data-toggle="tab"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
-                                </li>
-                            </ul>
-                    </div> -->
-                    <div ng-controller="tabsController">
-                        <tabset>
-                            <tab ng-repeat="tab in tabs">
-                                <tab-heading>{{tab.title}}<a ng-click="removeTab($index)" href=''><i class="icon-remove"></i></a></tab-heading>
-                                <div ng-bind-html-unsafe='tab.content'></div>
-                            </tab>
-                        </tabset>
-                    </div>
-=======
                     <div class="form-group">
                         <label class="col-md-3 control-label">Name:</label>
->>>>>>> origin/master
 
                         <div class="col-md-9">
                             <input class="form-control" id="projectName" type="text">
@@ -232,25 +173,26 @@
     <!--  </nav> -->
 
     <div id="page-wrapper">
-        <!-- <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Dashboard</h1>
-            </div>
-              /.col-lg-12
-        </div> -->
 
         <!-- Tab navigation -->
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="tabbable">
+<!--                 <div class="tabbable">
                     <ul class="nav nav-tabs" ng-controller="projectListController">
                         <li ng-repeat="project in projects">
                             <a href="#p{{project.id}}" data-toggle="tab"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
                         </li>
                     </ul>
+                </div> -->
+                <div ng-controller="tabsController">
+                    <tabset>
+                        <tab ng-repeat="tab in tabs">
+                            <tab-heading>{{tab.title}}<a ng-click="removeTab($index)" href=''><i class="icon-remove"></i></a></tab-heading>
+                            <div ng-bind-html-unsafe='tab.content'></div>
+                        </tab>
+                    </tabset>
                 </div>
-
                 <!-- Tab Section -->
                 <!-- sadrzaj -->
 
@@ -379,8 +321,7 @@
 <!-- Angular -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.js"></script>
 <script src="/js/custom.js"></script>
-
-    <script src="/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+<script src="/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
 </body>
 
 </html>
