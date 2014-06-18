@@ -483,12 +483,11 @@
       <workItem from="1402757663223" duration="8495000" />
       <workItem from="1402770157408" duration="2470000" />
       <workItem from="1402773126498" duration="1512000" />
-      <workItem from="1403104781329" duration="324000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45912000" />
+    <option name="totallyTimeSpent" value="45588000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -891,6 +890,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.4835165" vertical-offset="756" max-vertical-offset="1332">
           <caret line="12" column="61" selection-start-line="12" selection-start-column="61" selection-end-line="12" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="846" max-vertical-offset="1476">
+          <caret line="62" column="3" selection-start-line="62" selection-start-column="3" selection-end-line="62" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>

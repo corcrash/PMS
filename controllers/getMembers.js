@@ -24,16 +24,23 @@ module.exports = function (req,res){
             console.error(err);
             return;
         }
-        connection.query("SELECT ?, ? FROM ? JOIN ? WHERE ? = ? ORDER BY ?",
-            ["users.display_name","users.avatar","pms.users",
-                "pms.project","users.id",id,"users.display_name"],
-                    function(err,result) {
+        connection.query("SELECT users.display_name, users.avatar " +
+                "FROM pms.users " +
+                "JOIN pms.projects " +
+                "WHERE user.id = ? " +
+                "ORDER BY users.display_name",
+                [connection.escape(id)],function(err,result) {
                 if (err){
                     console.error(err);
                     return;
                 }
-               console.log(JSON.stringify(result));
-               res.send(null,JSON.stringify(result));
+                result.forEach (function(item){
+                    var paket = {
+                        name : item.display_name,
+                        avatar : item.avatar
+                    };
+                    res.send(paket);
+                })
             });
 
         connection.release();
