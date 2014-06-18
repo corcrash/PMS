@@ -11,7 +11,7 @@ module.exports = function(res,req){
         return;
     }
     if (!(req.body.commentText && req.body.user_id &&
-        req.body.task_id && req.body.task_project_id){
+        req.body.task_id && req.body.task_project_id)){
         console.error("data_not_valid");
         return;
     }
