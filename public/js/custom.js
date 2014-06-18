@@ -1,7 +1,14 @@
 var pms = angular.module('pms', []);
-var projectTabs = [];
-pms.controller('projectListController', function ($scope, $http) {
+
+pms.factory('OpenTabs', function(){
+    return {tabs: []}
+});
+
+pms.controller('projectListController', function ($scope, $http, OpenTabs) {
     angular.element(document).ready(function () {
+
+        $scope.tabs = OpenTabs.tabs;
+
         $http.post('/getProjects').success(function (data) {
             console.log(data);
             $scope.projects = data;
@@ -9,45 +16,27 @@ pms.controller('projectListController', function ($scope, $http) {
 
         $scope.doStuff = function(index) {
             //vraca index kliknutog elementa iz levog bara
+            console.log("Tabs: " + $scope.tabs);
             $http.post('/getProject', {projectId:index}).success(function (data) {
-                $scope.project = data;
+//                $scope.project = data;
 
-
-//            alert($scope.project.name);
-//            alert($scope.project.id);
-//            alert($scope.project.description);
-//                registerComposeButtonEvent($scope.project.id, $scope.project.name, $scope.project.description, $scope.project.create_time);
-//                projectTabs.push( {
-//                    title: $scope.project.name,
-//                    content: $scope.project.description
-//                });
-//                $scope.removeTab=function(index) {
-//                    projectTabs.splice(index,1);
-//
-//                }
-//                $scope.tabs=projectTabs;
-//                console.log($scope.tabs[0].title);
-//                console.log("TEEEEEEST");
+                $scope.tabs.push( {
+                    title: data.name,
+                    content: data.content
+                });
             });
 
         }
     });
 });
 
-pms.controller('tabsController', function($scope){
+pms.controller('tabsController', function($scope, OpenTabs){
     angular.element(document).ready(function () {
-        projectTabs.push( {
-//            title: $scope.project.name,
-//            content: $scope.project.description
-            title: $scope.project.name,
-            content: $scope.project.content
-        });
-        $scope.removeTab=function(index) {
-            projectTabs.splice(index,1);
+        $scope.tabs = OpenTabs.tabs;
 
+        $scope.removeTab=function(index) {
+            $scope.tabs.splice(index,1);
         }
-        $scope.tabs=projectTabs;
-        console.log($scope.tabs[0].title);
     });
 });
 

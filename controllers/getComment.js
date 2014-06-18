@@ -10,7 +10,7 @@ module.exports = function (req,res){
         console.log("user_id_not_valid");
         return;
     }
-    var id = req.body.task_id;
+    var id = req.body.comment_id;
 
     mysql.getConnection(function(err,connection){
         if(err){
@@ -18,7 +18,7 @@ module.exports = function (req,res){
             return;
         }
         //get user_id koji se kasnije koristi
-        connection.query("SELECT comments.user_id FROM pms.comment WHERE task_id = ?",
+        connection.query("SELECT comments.user_id FROM pms.comment WHERE comment_id = ?",
             [connection.escape.id],function(err,result){
             var pom;
             if(err){
