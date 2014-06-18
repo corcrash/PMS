@@ -17,7 +17,7 @@ module.exports = function (req,res){
             return;
         }
         console.log(id);
-        connection.query("SELECT * FROM pms.users WHERE id = ?", [connection.escape(id)],
+        connection.query("SELECT * FROM pms.users WHERE id = ?", [id],
             function (err, result) {
             //var prom;
             if (err) {

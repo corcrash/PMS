@@ -24,8 +24,7 @@ module.exports = function (req,res) {
         connection.query("SELECT * FROM pms.comments" +
                 "WHERE task_id = ?" +
                 "ORDER BY comments.create_time DESC" +
-                "LIMIT ? ", [connection.escape(id), connection.escape(num)],
-            function (err, result) {
+                "LIMIT ? ", [id, num],function (err, result) {
                 if (err) {
                     console.error(err);
                     return;
@@ -46,7 +45,7 @@ module.exports = function (req,res) {
             "FROM pms.comments" +
             "WHERE task_id = ?" +
             "ORDER BY comments.create_time DESC" +
-            "LIMIT ?)", [], function (err, result) {
+            "LIMIT ?)", [id, num],function (err, result) {
             if (err) {
                 console.error(err);
                 return;

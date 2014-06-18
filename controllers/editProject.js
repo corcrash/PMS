@@ -19,8 +19,8 @@ module.exports = function (req,res){
             var name = req.body.projectData.name;
             var description = req.body.projectData.description;
 
-            connection.query("UPDATE pms.project SET name=?, description=? WHERE id=?", [connection.escape(name),
-                connection.escape(description), connection.escape(projectId)], function (err, result) {
+            connection.query("UPDATE pms.project SET name=?, description=? WHERE id=?", [name,
+                description, projectId], function (err, result) {
                 if (err) {
                     console.error(err);
                     return;

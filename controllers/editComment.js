@@ -28,8 +28,7 @@ module.exports = function(req,res){
         }
 
         connection.query("UPDATE pms.comment SET comment.text = ?" +
-            "WHERE id = ??", [connection.escape(text),connection.escape(comment_id)],
-            function(err,result){
+            "WHERE id = ??", [text,comment_id],function(err,result){
             if (err){
                 console.error(err);
                 return;

@@ -25,7 +25,7 @@ module.exports = function(res,req){
         text: req.body.commentText,
         user_id : req.body.user_id,
         task_id : req.body.task_id,
-        task_project_id : req.body.task_project_id
+        task_project_id : "SELECT "
     };
         connection.query("INSERT INTO pms.comments SET",
         connection.escape(queryPaket),function(err, result){
