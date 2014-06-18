@@ -1,9 +1,9 @@
 var mysql = require("../config/database");
 
+
 module.exports = function (req,res){
 
-    var id = req.user.id;
-    if (id = undefined) {
+    if (req.user.id = undefined) {
         console.error("user_id_not_valid");
         return;
     }
@@ -19,27 +19,32 @@ module.exports = function (req,res){
             var name = req.body.projectData.name;
             var description = req.body.projectData.description;
 
-            connection.query("UPDATE pms.project SET name=?, description=? WHERE id=?", [connection.escape(name), connection.escape(description), connection.escape(projectId)], function (err, result) {
+            connection.query("UPDATE pms.project SET name=?, description=? WHERE id=?", [connection.escape(name),
+                connection.escape(description), connection.escape(projectId)], function (err, result) {
                 if (err) {
                     console.error(err);
                     return;
                 }
+                //provera da li je update uspesan! - dodato 18.06
 
-                var status = {
-                    status: true,
-                    message: "project_update_successful"
-                };
+                if (result[0]){
+                    var s_status= {
+                        status: true,
+                        message: "project_update_successful"
+                    };
 
-                res.send(status);
-            })
+                    res.send(s_status);
+                }
+                else{
+                    var n_status = {
+                        status: false,
+                        message: "project_update_unsuccessful"
+                    };
+                    res.send(n_status);
+                }
+                });
+
+            connection.release();
         }
-        else {
-            var status = {
-                status: false,
-                message: "project_update_unsuccessful"
-            }
-        }
-
-        connection.release();
     });
 }

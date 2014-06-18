@@ -5,14 +5,21 @@
 //prima task_id ( id taska na koji je komentarisano )
 //i broj komentara koji treba da se pokaze, vraca sortiran
 //TODO: zavrsiti - nisi ni poceo nemo' se cesas po glavu i pitas gde si stao
+
+//ne proverava da li je num broj, pretpostavljam da ce uvek biti prosledjena
+    //prava vrednost
 var mysql = require('../config/database');
 
 module.exports = function (req,res){
 
+    if (req.user.id == undefined){
+        console.log("user_id_not_valid");
+        return;
+    }
     var id = req.body.task_id;
     var num = req.body.num;
 
-    if (id === undefined) {
+    if (id == undefined) {
         console.error("task_id_not_valid");
         return;
     }
@@ -22,7 +29,8 @@ module.exports = function (req,res){
             console.error(err);
             return;
         }
-        connection.query("SELECT * FROM pms.comment WHERE task_id = ?", [id],function(err,result){
+        connection.query("SELECT * FROM pms.comment WHERE task_id = ?", [connection.escape.id],
+            function(err,result){
             if(err){
                 console.error(err);
                 return;
