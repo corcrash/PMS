@@ -21,17 +21,18 @@ module.exports = function (req,res){
             return;
         }
         if (!(req.body.profileInfo == undefined)) {
-            var user_disp = connection.escape(req.body.profileInfo.displayName);
-            var user_desc = connection.escape(req.body.profileInfo.description);
+            var user_disp = req.body.profileInfo.displayName;
+            var user_desc = req.body.profileInfo.description;
 
-            connection.query("UPDATE pms.users SET display_name=?, description=? WHERE id=?",
-                [user_disp, user_desc, id], function (err, result) {
+            connection.query("UPDATE pms.users SET display_name=?, description=? WHERE id=?", [user_disp, user_desc, id], function (err, result) {
                 if (err) {
                     console.error(err);
                     return;
                 }
+
+                console.log();
                     //check update - successful
-                    if (result[0]){
+                    if (result.affectedRows > 0){
                         var s_status= {
                             status: true,
                             message: "insert_into_db_successful"

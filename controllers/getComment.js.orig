@@ -11,6 +11,7 @@ module.exports = function (req,res) {
         console.log("user_id_not_valid");
         return;
     }
+<<<<<<< HEAD
     var id = req.body.task_id;
     var num = req.body.num;
     mysql.getConnection(function (err, connection) {
@@ -48,6 +49,20 @@ module.exports = function (req,res) {
             "ORDER BY comments.create_time DESC" +
             "LIMIT ?)", [], function (err, result) {
             if (err) {
+=======
+    var id = req.body.comment_id;
+
+    mysql.getConnection(function(err,connection){
+        if(err){
+            console.error(err);
+            return;
+        }
+        //get user_id koji se kasnije koristi
+        connection.query("SELECT comments.user_id FROM pms.comment WHERE comment_id = ?",
+            [connection.escape.id],function(err,result){
+            var pom;
+            if(err){
+>>>>>>> cfd9b223faff2729fa911da14e383fe389c2a814
                 console.error(err);
                 return;
             }
@@ -63,9 +78,10 @@ module.exports = function (req,res) {
         var paket = [];
         for (var i = 0; i < paket_kom.length; i++) {
             paket[i] = merge(paket_kom[i], paket_user[i]);
-        };
+
             res.send(paket);
             connection.release();
-
+        }
     })
 };
+

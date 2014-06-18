@@ -147,7 +147,7 @@
             <img src="/img/logo.png" />
             <ul class="nav" id="side-menu" ng-controller="projectListController">
                 <li ng-repeat="project in projects">
-                    <a href="javascript:;"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
+                    <a href="javascript:;" ng-click="doStuff(project.id)"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
                 </li>
                 <li>
                     <a href="javascript:;" data-toggle="modal" data-target="#newProjectModal">+ New project</a>
@@ -173,21 +173,22 @@
     <!--  </nav> -->
 
     <div id="page-wrapper">
-        <!-- <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Dashboard</h1>
-            </div>
-              /.col-lg-12
-        </div> -->
 
         <!-- Tab navigation -->
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="tabbable">
+<!--                 <div class="tabbable">
                     <ul class="nav nav-tabs" ng-controller="projectListController">
                         <li ng-repeat="project in projects">
                             <a href="#p{{project.id}}" data-toggle="tab"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" ng-controller="tabsController">
+                        <li ng-repeat="tab in tabs">
+                           <a  href='#t{{tab.id}}' data-toggle="tab">{{tab.title}} <i ng-click="removeTab($index)" class="glyphicon glyphicon-remove"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -195,18 +196,13 @@
                 <!-- Tab Section -->
                 <!-- sadrzaj -->
 
-                <div class="tab-content" ng-controller="projectListController">
-                    <div ng-repeat="project in projects" class="tab-pane" id="p{{project.id}}">
+                <div class="tab-content" ng-controller="tabsController">
+                    <div ng-repeat="tab in tabs" class="tab-pane" id='t{{tab.id}}'>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-6" id="projectDescription{{project.id}}">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue
-                                        lobortis justo sodales egestas. Donec ut ipsum feugiat, tincidunt lectus nec,
-                                        adipiscing nisl. Pellentesque interdum nulla sed velit suscipit tempor.
-                                        Phasellus congue tortor non purus accumsan aliquam. Morbi egestas eros eu
-                                        tincidunt tristique. Sed eget odio sit amet velit sagittis pharetra vitae eget
-                                        tortor. Aenean sem risus, ultricies et consequat vestibulum, mattis non nisl.
+                                    <div class="col-lg-6" id="projectDescription{{tab.id}}">
+                                        {{tab.description}}
                                     </div>
                                     <div class="col-lg-6">
                                         <h4>Collaborators</h4>
@@ -319,8 +315,10 @@
 
 <!-- Angular -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.js"></script>
-<script src="/js/custom.js"></script>
 
+<script src="/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<script src="/js/custom.js"></script>
 </body>
 
 </html>

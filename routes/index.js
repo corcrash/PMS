@@ -6,7 +6,7 @@ var editProfile = require('../controllers/editProfile');
 var getProjects = require('../controllers/getProjects');
 var getProject = require('../controllers/getProject');
 var uploadAvatar = require('../controllers/uploadAvatar');
-
+var getTasks = require('../controllers/getTasks');
 
 /* GET home page. */
 router.get('/login', function(req, res) {
@@ -61,6 +61,10 @@ router.post('/getProject', isLoggedIn, function(req, res){
 router.post('/uploadAvatar', function (req, res) {
     uploadAvatar(req, res);
 });
+
+router.post('/getTasks', function(req, res){
+
+})
 
 // Funkcija koja proverava da li je korisnik ulogovan
 function isLoggedIn(req, res, next) {

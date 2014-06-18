@@ -1,11 +1,43 @@
 var pms = angular.module('pms', []);
 
-pms.controller('projectListController', function ($scope, $http) {
+pms.factory('OpenTabs', function(){
+    return {tabs: []}
+});
+
+pms.controller('projectListController', function ($scope, $http, OpenTabs) {
     angular.element(document).ready(function () {
+
+        $scope.tabs = OpenTabs.tabs;
+
         $http.post('/getProjects').success(function (data) {
             console.log(data);
             $scope.projects = data;
         });
+
+        $scope.doStuff = function(index) {
+            //vraca index kliknutog elementa iz levog bara
+            console.log("Tabs: " + $scope.tabs);
+            $http.post('/getProject', {projectId:index}).success(function (data) {
+//                $scope.project = data;
+
+                $scope.tabs.push( {
+                    title: data.name,
+                    id: data.id,
+                    description: data.description
+                });
+            });
+
+        }
+    });
+});
+
+pms.controller('tabsController', function($scope, OpenTabs){
+    angular.element(document).ready(function () {
+        $scope.tabs = OpenTabs.tabs;
+
+        $scope.removeTab=function(index) {
+            $scope.tabs.splice(index,1);
+        }
     });
 });
 
@@ -14,6 +46,7 @@ pms.controller('projectListController', function ($scope, $http) {
 $(document).ready(function () {
     loadProfile();
     bindClicks();
+
 });
 
 function bindClicks() {
@@ -46,7 +79,7 @@ function loadProfile() {
 function saveProfile() {
     var profileData = {
         displayName: $("#profileDisplayName").val(),
-        description: $("#prodileDescription").val(),
+        description: $("#prodileDescription").val()
     }
 
     $.post('/editProfile', {profileInfo: profileData}).done(function (response) {
@@ -66,3 +99,4 @@ function saveProfile() {
 function showProfileModal() {
     $("#profileModal").modal({keyboard: true});
 }
+
