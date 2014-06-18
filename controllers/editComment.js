@@ -28,18 +28,28 @@ module.exports = function(req,res){
         }
 
         connection.query("UPDATE pms.comment SET comment.text = ?" +
-            "WHERE id = ??", [text,comment_id],function(err){
+            "WHERE id = ??", [connection.escape(text),connection.escape(comment_id)],
+            function(err,result){
             if (err){
                 console.error(err);
                 return;
             }
-            var pom = {
-                status: true,
-                message: "update_comment_successful"
-            };
-            res.send(pom);
+            if (result){
+                var paket_s = {
+                    status: true,
+                    message: "update_comment_successful"
+                };
+                res.send(paket_s);
+            }
+            else {
+                var paket_n = {
+                    status: true,
+                    message: "update_comment_unsuccessful"
+                }
+                res.send(paket_n);
+            }
         });
+
         connection.release();
     })
-
 };

@@ -6,7 +6,8 @@ module.exports = function (req, res) {
             console.error(err);
             return;
         }
-        connection.query("SELECT * FROM pms.projects WHERE user_id=? AND id=?", [req.user.id, req.body.projectId], function (err, rows) {
+        connection.query("SELECT * FROM pms.projects WHERE user_id=? AND id=?", [req.user.id,
+            req.body.projectId], function (err, rows) {
             if (err) {
                 console.log(err);
                 return;
@@ -23,7 +24,7 @@ module.exports = function (req, res) {
 
             res.send(project);
 
-        });;
+        });
 
         connection.release();
     });

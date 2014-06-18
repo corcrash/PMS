@@ -26,7 +26,8 @@ module.exports = function (req,res){
         }
         connection.query("SELECT ?, ? FROM ? JOIN ? WHERE ? = ? ORDER BY ?",
             ["users.display_name","users.avatar","pms.users",
-                "pms.project","users.id",id,"users.display_name"],
+                "pms.projects","users.id",connection.escape(id),
+                "users.display_name"],
                     function(err,result) {
                 if (err){
                     console.error(err);
