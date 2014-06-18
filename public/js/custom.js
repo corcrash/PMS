@@ -1,11 +1,53 @@
 var pms = angular.module('pms', []);
-
+var projectTabs = [];
 pms.controller('projectListController', function ($scope, $http) {
     angular.element(document).ready(function () {
         $http.post('/getProjects').success(function (data) {
             console.log(data);
             $scope.projects = data;
         });
+
+        $scope.doStuff = function(index) {
+            //vraca index kliknutog elementa iz levog bara
+            $http.post('/getProject', {projectId:index}).success(function (data) {
+                $scope.project = data;
+
+
+//            alert($scope.project.name);
+//            alert($scope.project.id);
+//            alert($scope.project.description);
+//                registerComposeButtonEvent($scope.project.id, $scope.project.name, $scope.project.description, $scope.project.create_time);
+//                projectTabs.push( {
+//                    title: $scope.project.name,
+//                    content: $scope.project.description
+//                });
+//                $scope.removeTab=function(index) {
+//                    projectTabs.splice(index,1);
+//
+//                }
+//                $scope.tabs=projectTabs;
+//                console.log($scope.tabs[0].title);
+//                console.log("TEEEEEEST");
+            });
+
+        }
+    });
+});
+
+pms.controller('tabsController', function($scope){
+    angular.element(document).ready(function () {
+        projectTabs.push( {
+//            title: $scope.project.name,
+//            content: $scope.project.description
+            title: $scope.project.name,
+            content: $scope.project.content
+        });
+        $scope.removeTab=function(index) {
+            projectTabs.splice(index,1);
+
+        }
+        $scope.tabs=projectTabs;
+        console.log($scope.tabs[0].title);
     });
 });
 
@@ -14,6 +56,7 @@ pms.controller('projectListController', function ($scope, $http) {
 $(document).ready(function () {
     loadProfile();
     bindClicks();
+
 });
 
 function bindClicks() {
@@ -46,7 +89,7 @@ function loadProfile() {
 function saveProfile() {
     var profileData = {
         displayName: $("#profileDisplayName").val(),
-        description: $("#prodileDescription").val(),
+        description: $("#prodileDescription").val()
     }
 
     $.post('/editProfile', {profileInfo: profileData}).done(function (response) {
@@ -66,3 +109,4 @@ function saveProfile() {
 function showProfileModal() {
     $("#profileModal").modal({keyboard: true});
 }
+
