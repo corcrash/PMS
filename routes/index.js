@@ -8,6 +8,7 @@ var getProject = require('../controllers/getProject');
 var uploadAvatar = require('../controllers/uploadAvatar');
 var getTasks = require('../controllers/getTasks');
 var addTask = require('../controllers/addTask');
+var getComments = require('../controllers/getComment');
 
 /* GET home page. */
 router.get('/login', function(req, res) {

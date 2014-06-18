@@ -45,7 +45,7 @@ module.exports = function(req,res){
                 var paket_n = {
                     status: true,
                     message: "update_comment_unsuccessful"
-                }
+                };
                 res.send(paket_n);
             }
         });

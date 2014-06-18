@@ -3,65 +3,68 @@
  */
 
 var mysql = require('../config/database');
+var merge = require('../utility/merge');
 
-module.exports = function (req,res){
+module.exports = function (req,res) {
 
-    if (req.user.id == undefined){
+    if (req.user.id == undefined) {
         console.log("user_id_not_valid");
         return;
     }
-    var id = req.body.comment_id;
+    var id = req.body.task_id;
+    var num = req.body.num;
 
-    mysql.getConnection(function(err,connection){
-        if(err){
+    mysql.getConnection(function (err, connection) {
+        if (err) {
             console.error(err);
             return;
         }
-        //get user_id koji se kasnije koristi
-        connection.query("SELECT comments.user_id FROM pms.comment WHERE comment_id = ?",
-            [connection.escape.id],function(err,result){
-            var pom;
-            if(err){
-                console.error(err);
-                return;
-            }
-            if (result[0]){
-                pom = result[0];
-            }
-            //vraca zadnjih 20 komentara
-            //TODO utvrditi na koji tacno nacin oce Dicko da ih primi :)
-            for (var i = pom; i > pom-20; i--) {
-                if (i == 0)
+
+        //vraca zadnjih num komentara
+        connection.query("SELECT * FROM pms.comments" +
+                "WHERE task_id = ?" +
+                "ORDER BY comments.create_time DESC" +
+                "LIMIT ? ", [id, num],
+            function (err, result1) {
+                if (err) {
+                    console.error(err);
                     return;
+                }
 
-                //get avatar, name, create_time_comment, comment_text
                 connection.query("SELECT users.avatar, users.display_name " +
-                        "FROM pms.users" +
-                        "JOIN pms.comments" +
-                        "WHERE ? = ?" +
-                        "AND" +
-                        "SELECT comments.create_time, comments.text" +
-                        "FROM pms.comments" +
-                        "WHERE comments.id = ?",
-                    [connection.escape(pom), connection.escape("user.id"),
-                        connection.escape(id)], function (err, result) {
-                        if (err) {
-                            console.error("user_disp_name_query");
-                            return;
-                        }
+                    "FROM pms.users " +
+                    "WHERE users.id IN " +
+                    "(SELECT comment.user_id" +
+                    "FROM pms.comments" +
+                    "WHERE task_id = ?" +
+                    "ORDER BY comments.create_time DESC" +
+                    "LIMIT ?)", [id, num], function (err, result2) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
 
-                        var paket = {
-                            avatar: result[0].avatar,
-                            name: result[0].display_name,
-                            time: result[0].create_time,
-                            text: result[0].text
-                        };
+                    var responseData = [];
 
-                        res.send(paket);
+                    result1.forEach(function (item, index) {
+                        responseData.push({
+                            displayName: result2[index].displayName,
+                            avatar: result2[index].avatar,
+                            text: item.text,
+                            create_time: item.create_time
+                        });
                     });
-            }
-            connection.release();
-        })
-    })
 
+                    console.log(responseData);
+
+                    res.send(responseData);
+                    connection.release();
+
+                });
+
+            });
+
+
+
+    })
 };

@@ -22,7 +22,8 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
 
                 $scope.tabs.push( {
                     title: data.name,
-                    content: data.content
+                    id: data.id,
+                    description: data.description
                 });
             });
 

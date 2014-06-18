@@ -185,29 +185,24 @@
                         </li>
                     </ul>
                 </div> -->
-                <div ng-controller="tabsController">
-                    <tabset>
-                        <tab ng-repeat="tab in tabs">
-                            <tab-heading>{{tab.title}}<a ng-click="removeTab($index)" href=''><i class="icon-remove"></i></a></tab-heading>
-                            <div>{{tab.content}}</div>
-                        </tab>
-                    </tabset>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" ng-controller="tabsController">
+                        <li ng-repeat="tab in tabs">
+                           <a  href='#t{{tab.id}}' data-toggle="tab">{{tab.title}} <i ng-click="removeTab($index)" class="glyphicon glyphicon-remove"></i></a>
+                        </li>
+                    </ul>
                 </div>
+
                 <!-- Tab Section -->
                 <!-- sadrzaj -->
 
-                <div class="tab-content" ng-controller="projectListController">
-                    <div ng-repeat="project in projects" class="tab-pane" id="p{{project.id}}">
+                <div class="tab-content" ng-controller="tabsController">
+                    <div ng-repeat="tab in tabs" class="tab-pane" id='t{{tab.id}}'>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-6" id="projectDescription{{project.id}}">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue
-                                        lobortis justo sodales egestas. Donec ut ipsum feugiat, tincidunt lectus nec,
-                                        adipiscing nisl. Pellentesque interdum nulla sed velit suscipit tempor.
-                                        Phasellus congue tortor non purus accumsan aliquam. Morbi egestas eros eu
-                                        tincidunt tristique. Sed eget odio sit amet velit sagittis pharetra vitae eget
-                                        tortor. Aenean sem risus, ultricies et consequat vestibulum, mattis non nisl.
+                                    <div class="col-lg-6" id="projectDescription{{tab.id}}">
+                                        {{tab.description}}
                                     </div>
                                     <div class="col-lg-6">
                                         <h4>Collaborators</h4>
