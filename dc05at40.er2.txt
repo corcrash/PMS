@@ -1,0 +1,51 @@
+﻿Merge remote-tracking branch 'origin/master'
+
+Conflicts:
+	views/index.ejs
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 7 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#   (use "git commit" to conclude merge)
+#
+# Changes to be committed:
+#
+#	modified:   .idea/workspace.xml
+#	modified:   config/database.js
+#	new file:   controllers/addComment.js
+#	modified:   controllers/deleteComment.js
+#	modified:   controllers/editComment.js
+#	modified:   controllers/editProfile.js
+#	modified:   controllers/editProject.js
+#	modified:   controllers/getComment.js
+#	modified:   controllers/getMembers.js
+#	modified:   controllers/getProfile.js
+#	modified:   controllers/getProject.js
+#	deleted:    controllers/getProjects.js.orig
+#	modified:   controllers/uploadAvatar.js
+#	deleted:    node_modules/express-session/node_modules/debug/lib/debug.js
+#	deleted:    npm-debug.log
+#	modified:   public/css/custom.css
+#	new file:   public/img/logo.png
+#	modified:   public/js/custom.js
+#	new file:   public/tmp/images/238421e2fdd6060e081b2fc48d4ee1b6
+#	new file:   public/tmp/images/db5eb9b899e15c721857165a0fd265dc
+#	new file:   public/tmp/images/f2ce0d90b8a48d7e57a9b3fdad5e21ca
+#	new file:   public/user_data/1/avatar.jpg
+#	deleted:    routes/index.js.orig
+#	modified:   views/index.ejs
+#	deleted:    views/login.ejs.orig
+#	modified:   views/profile.ejs
+#
+
