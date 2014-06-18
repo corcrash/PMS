@@ -28,6 +28,16 @@ function loadProfile() {
             if(data.status){
                 $("#profileAvatar").attr('src', data.url);
             }
+            else
+            {
+                if(data.message === 'image_too_big'){
+                    $('#avatarUploadButton').popover({animation: true, trigger: 'manual', placement: 'right', content: "The image is too big!"})
+                }
+
+                if(data.message === 'image_upload_unsuccessful'){
+                    $('#avatarUploadButton').popover({animation: true, trigger: 'manual', placement: 'right', content: "There was a problem while uploading the image!"})
+                }
+            }
         });
 
     });
