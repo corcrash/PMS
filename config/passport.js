@@ -55,8 +55,13 @@ module.exports = function(passport) {
 
                     newUserMysql.email    = email;
                     newUserMysql.password = password; // use the generateHash function in our user model
+                    displayName = req.body.display_name
 
-                    var insertQuery = "INSERT INTO `pms`.`users` ( email, password ) values ('" + email +"','"+ password +"')";
+                    if(req.body.rpassword != password){
+                        return done(null, false, req.flash('signupMessage', 'The passwords do not match!'));
+                    }
+
+                    var insertQuery = "INSERT INTO `pms`.`users` ( display_name, email, password, avatar ) values ('" + displayName +"', '" + email +"', '"+ password +"', '/img/avatar.png')";
                     console.log(insertQuery);
                     mysql.query(insertQuery,function(err,rows){
                         newUserMysql.id = rows.insertId;

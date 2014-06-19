@@ -4,12 +4,15 @@
 
 var mysql = require('../config/database');
 
-module.exports = function (req,res){
+module.exports = function (req, res){
 
-    if(!(req.user.id && req.body.name && req.body.description)){
+    if(!req.user.id){
         console.error("data_not_valid");
         return;
     }
+
+    console.log("Add project!");
+    //console.log(req);
 
     mysql.getConnection(function(err,connection){
         if (err){
@@ -17,18 +20,22 @@ module.exports = function (req,res){
             return;
         }
 
-        connection.query("INSERT INTO pms.projects (project.name, project.description) " +
-            "VALUES ?, ?"),[req.body.name, req.body.description], function (err,result){
+        console.log("Connection!");
+
+        connection.query("INSERT INTO pms.projects (name, description, user_id) VALUES (?, ?, ?)", [req.body.name, req.body.description, req.user.id], function (err, result){
             if (err){
                 console.error(err);
                 return;
             }
+
+            console.log("Prvi insert " + result);
             connection.query("INSERT INTO pms.user_is_admin_of_project (user_id, project_id) " +
-                "VALUES ?, ?",[req.user.id, result.insertId], function (err,result1){
+                "VALUES (?, ?)",[req.user.id, result.insertId], function (err,result1){
                 if (err){
                     console.error(err);
                     return;
                 }
+                console.log("Drugi insert " + result);
                 if (result.affectedRows > 0 && result1.affectedRows > 0){
                     var s_status= {
                         status: true,
@@ -44,9 +51,11 @@ module.exports = function (req,res){
                     };
                     res.send(n_status);
                 }
+
+                connection.release();
             })
 
-            connection.release();
-        };
+
+        });
       })
 };

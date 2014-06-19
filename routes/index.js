@@ -11,6 +11,7 @@ var addTask = require('../controllers/addTask');
 var updateTask = require('../controllers/updateTask');
 var deleteTask = require('../controllers/deleteTask');
 var getComments = require('../controllers/getComment');
+var addProject = require('../controllers/addProject');
 
 /* GET home page. */
 router.get('/login', function(req, res) {
@@ -80,6 +81,10 @@ router.post('/updateTask', function(req, res){
 
 router.post('/deleteTask', function(req, res){
     deleteTask(req, res);
+});
+
+router.post('/addProject', function(req, res){
+    addProject(req, res);
 });
 
 // Funkcija koja proverava da li je korisnik ulogovan

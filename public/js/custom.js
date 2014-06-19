@@ -4,14 +4,37 @@ pms.factory('OpenTabs', function(){
     return {tabs: [], currentId: -1, currentIndex: -1}
 });
 
-pms.controller('projectListController', function ($scope, $http, OpenTabs) {
-    angular.element(document).ready(function () {
+pms.service('Projects', function($rootScope){
+    var projects = [];
 
-        $scope.tabs = OpenTabs.tabs;
+    var projectService = {};
+
+    projectService.setData = function(data){
+        projects = data;
+        $rootScope.$broadcast('projectsDataSet', true);
+    }
+
+    projectService.projects = function(){
+        return projects;
+    }
+
+    return projectService;
+});
+
+pms.controller('projectListController', function ($scope, $http, OpenTabs, Projects) {
+    $scope.tabs = OpenTabs.tabs;
+    $scope.projects = Projects.projects();
+
+    $scope.$on('projectsDataSet', function(response){
+        $scope.projects = Projects.projects();
+    });
+
+    angular.element(document).ready(function () {
 
         $http.post('/getProjects').success(function (data) {
             console.log(data);
-            $scope.projects = data;
+            //$scope.projects = data;
+            Projects.setData(data);
         });
 
         $scope.doStuff = function(index) {
@@ -96,6 +119,22 @@ pms.controller('taskModalController', function($scope, $http, OpenTabs){
                 });
 
                 OpenTabs.tabs[OpenTabs.currentIndex].tasks = temp;
+            });
+        });
+    }
+});
+
+pms.controller('projectModalController', function($scope, $http, Projects){
+    $scope.name = '';
+    $scope.description = '';
+
+    $scope.sendData = function(){
+        console.log($scope.name + " : " + $scope.description);
+        $http.post('/addProject', {name: $scope.name, description: $scope.description}).success(function(){
+            $http.post('/getProjects').success(function (data){
+                console.log(data);
+                Projects.setData(data)
+                console.log(Projects.projects);
             });
         });
     }
