@@ -16,7 +16,7 @@ module.exports = function (res, req){
            console.error(err);
            return;
        }
-       connection.query("INSERT pms.user_works_on_project (user_works_on_project.user_id," +
+       connection.query("INSERT INTO pms.user_works_on_project (user_works_on_project.user_id," +
                "user_works_on_project.project_id) VALUES ?",[req.user.id, req.body.project_id],
                 function(err,result){
                     if (err){
@@ -26,14 +26,14 @@ module.exports = function (res, req){
                     if (result.affectedRows > 0){
                         var ret = {
                             status : true,
-                            message : result[0]
+                            message : "member_insert_sucessful"
                         };
                         res.send(ret);
                     }
                     else{
                         var pom = {
                             status : false,
-                            message : "insert_failed"
+                            message : "member_insert_failed"
                         };
                         res.send(pom);
                     }

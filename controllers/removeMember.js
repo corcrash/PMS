@@ -29,14 +29,14 @@ module.exports = function (req,res){
             {
                 var paket_s = {
                     status: true,
-                    messege: "comment_deleted"
+                    messege: "update_tas_successful"
                 };
                 res.send(paket_s);
             }
             else{
                 var paket_n = {
                     status : false,
-                    message: "failed_comment_delete"
+                    message: "update_task_failed"
                 };
                 res.send(paket_n);
             }

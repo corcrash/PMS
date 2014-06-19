@@ -25,14 +25,14 @@ module.exports = function(res,req){
                 if(result.rowsAffected > 0){
                     var paket_s = {
                         status : true,
-                        message: "insert_successful"
+                        message: "task_insert_successful"
                     };
                     res.send(paket_s);
                 }
                 else{
                     var paket_n = {
                         status : false,
-                        message : "insert_unsuccessful"
+                        message : "task_insert_unsuccessful"
                     };
                     res.send(paket_n);
                 }

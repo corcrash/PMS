@@ -31,14 +31,14 @@ module.exports = function(res,req){
                 if(result.affectedRows > 0){
                     var paket_s = {
                         status : true,
-                        message: result[0]
+                        message: "comment_insert_successful"
                     };
                     res.send(paket_s);
                 }
                 else{
                     var paket_n = {
                         status : true,
-                        message : "insert_unsuccessful"
+                        message : "comment_insert_unsuccessful"
                     };
                     res.send(paket_n);
                 }
