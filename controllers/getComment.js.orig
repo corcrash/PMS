@@ -1,0 +1,104 @@
+/**
+ * Created by aleksandar on 12.6.14..
+ */
+
+var mysql = require('../config/database');
+var merge = require('../utility/merge');
+
+module.exports = function (req,res) {
+
+    if (req.user.id == undefined) {
+        console.log("user_id_not_valid");
+        return;
+    }
+    var id = req.body.task_id;
+    var num = req.body.num;
+
+    mysql.getConnection(function (err, connection) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        //vraca zadnjih num komentara
+        connection.query("SELECT * FROM pms.comments" +
+                "WHERE task_id = ?" +
+                "ORDER BY comments.create_time DESC" +
+<<<<<<< HEAD
+                "LIMIT ? ", [id, num],
+            function (err, result1) {
+=======
+                "LIMIT ? ", [id, num],function (err, result) {
+>>>>>>> d1329966cb25452399035a70638fc5af1759523e
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+
+                connection.query("SELECT users.avatar, users.display_name " +
+                    "FROM pms.users " +
+                    "WHERE users.id IN " +
+                    "(SELECT comment.user_id" +
+                    "FROM pms.comments" +
+                    "WHERE task_id = ?" +
+                    "ORDER BY comments.create_time DESC" +
+                    "LIMIT ?)", [id, num], function (err, result2) {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+
+                    var responseData = [];
+
+                    result1.forEach(function (item, index) {
+                        responseData.push({
+                            displayName: result2[index].displayName,
+                            avatar: result2[index].avatar,
+                            text: item.text,
+                            create_time: item.create_time
+                        });
+                    });
+
+                    console.log(responseData);
+
+                    res.send(responseData);
+                    connection.release();
+
+                });
+
+            });
+<<<<<<< HEAD
+
+
+=======
+        connection.query("SELECT users.avatar, users.display_name " +
+            "FROM pms.users " +
+            "WHERE users.id IN " +
+            "(SELECT comment.user_id" +
+            "FROM pms.comments" +
+            "WHERE task_id = ?" +
+            "ORDER BY comments.create_time DESC" +
+            "LIMIT ?)", [id, num],function (err, result) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            var i = 0;
+            result.forEach(function (item) {
+                paket_user[i] = {
+                    avatar: item.text,
+                    display_name: item.display_name
+                };
+                i++;
+            });
+        });
+        var paket = [];
+        for (var i = 0; i < paket_kom.length; i++) {
+            paket[i] = merge(paket_kom[i], paket_user[i]);
+        }
+            res.send(paket);
+            connection.release();
+>>>>>>> d1329966cb25452399035a70638fc5af1759523e
+
+    })
+};
