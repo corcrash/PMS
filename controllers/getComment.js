@@ -3,7 +3,6 @@
  */
 
 var mysql = require('../config/database');
-var merge = require('../utility/merge');
 
 module.exports = function (req,res) {
 
