@@ -1,32 +1,29 @@
 /**
- * Created by aleksandar on 13.6.14..
+ * Created by aleksandar on 19.6.14..
  */
-
-//prima comment_id
-//vraca JSON{status,message}
 
 var mysql = require ('../config/database');
 
-module.exports = function(req,res){
+module.exports = function (req,res){
 
     if (req.user.id === undefined){
         console.error("user_id_not_valid");
         return;
     }
-
-    var comment_id = req.body.comment_id;
-    if (comment_id === undefined){
-        console.error("comment_id_not_recieved");
+    if (!(req.body.user_id && req.body.project_id)){
+        console.error("data_not_valid");
         return;
     }
 
-    mysql.getConnection( function (err,connection) {
+    mysql.getConnection(function(err,connection){
         if (err){
             console.error(err);
             return;
         }
-        connection.query("DELETE * FROM pms.comment" +
-            "WERE id = ?",[comment_id],function (err,result){
+        connection.query("DELETE * FROM pms.user_works_on_project" +
+            "WERE user_works_on_project.user_id = ? AND" +
+            "WHERE user_works_on_project.project_id = ?",[req.body.user_id,
+            req.body.project_id], function (err,result){
             if (err)
             {
                 console.error("query_failure_comment_delete");

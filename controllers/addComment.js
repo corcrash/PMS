@@ -44,6 +44,7 @@ module.exports = function(res,req){
                 }
 
             })
+        connection.release();
     })
 
 };
