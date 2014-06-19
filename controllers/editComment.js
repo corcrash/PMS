@@ -33,7 +33,7 @@ module.exports = function(req,res){
                 console.error(err);
                 return;
             }
-            if (result){
+            if (result.affectedRows > 0){
                 var paket_s = {
                     status: true,
                     message: "update_comment_successful"

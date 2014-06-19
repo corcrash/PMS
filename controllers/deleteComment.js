@@ -32,7 +32,7 @@ module.exports = function(req,res){
                 console.error("query_failure_comment_delete");
                 return;
             }
-            if (result)
+            if (result.affectedRows > 0)
             {
                 var paket_s = {
                     status: true,
