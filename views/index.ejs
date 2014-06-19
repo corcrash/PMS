@@ -223,30 +223,16 @@
                                         <div class="panel-body">
                                             <div class="col-lg-3">
                                                 <ul class="nav nav-pills nav-stacked">
-                                                    <li class="active"><a href="#task1" data-toggle="tab">Task 1</a>
-                                                    </li>
-                                                    <li><a href="#task2" data-toggle="tab">Task 2</a></li>
-                                                    <li><a href="#task3" data-toggle="tab">Task 3</a></li>
+                                                    <li ng-repeat="task in tab.tasks" ng-class="{active: $first}"><a href="#task{{task.id}}" data-toggle="tab">{{task.name}}</a></li>
+
                                                     <li><a href="javascript:;">+ New task</a></li>
                                                 </ul>
                                             </div>
                                             <div class="tab-content col-lg-9">
-                                                <div class="row">
-                                                    <div class="col-lg-7">
-                                                        <div class="tab-pane fade active in" id="task1">
-                                                            <h4>Task 1</h4>
+                                                        <div class="col-lg-7 tab-pane fade" ng-repeat="task in tab.tasks" ng-class="{active: $first, in: $first}" id="task{{task.id}}">
+                                                            <h4>{{task.name}}</h4>
 
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                                                enim
-                                                                ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                                                ut
-                                                                aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                                                reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                                                nulla
-                                                                pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-                                                                in
-                                                                culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                            <p>{{task.description}}</p>
 
                                                             <div class="row">
                                                                 <div class="col-lg-6">
@@ -257,18 +243,17 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
-                                                                    <h4><strong>Deadline:</strong> 24/06/2014</h4>
+                                                                    <h4><strong>Deadline:</strong> {{task.deadline}}</h4>
                                                                     <h4><strong>Date complete:</strong></h4>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-12">
-                                                                    <img src="http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png" class="avatar-small img-thumbnail"/>
+                                                                    <img ng-repeat="delegate in task.delegates" src="{{delegate.avatar}}" alt="{{delegate.displayName}}" class="avatar-small img-thumbnail"/>
                                                                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#delegateModal">+</button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                     <div class="col-lg-5">
                                                         <form class="form-inline" role="form">
                                                             <div class="form-group">
@@ -279,7 +264,6 @@
                                                             </div>
                                                         </form>
                                                     </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -20,17 +20,29 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
             $http.post('/getProject', {projectId:index}).success(function (data) {
 //               $scope.project = data;
                 var n=false;
-                angular.forEach($scope.tabs, function (value,key) {
+                angular.forEach($scope.tabs, function (value, key) {
                    if(value.id == index) {
                        n=true;
                    }
                 });
                 if(n==false) {
-                    $scope.tabs.push({
+                    var temp = {
                         title: data.name,
                         id: data.id,
-                        description: data.description
+                        description: data.description,
+                        tasks: []
+                    };
+
+                    $http.post('/getTasks', {projectId: index}).success(function (data){
+                        console.log(data);
+                        data.forEach(function (datum){
+                            temp.tasks.push(datum);
+                        });
+
+                        console.log(temp);
                     });
+
+                    $scope.tabs.push(temp);
                 }
             });
 
