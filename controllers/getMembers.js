@@ -9,12 +9,11 @@ var mysql = require("../config/database");
 
 module.exports = function (req,res){
 
-    var id = req.body.id;
     if (req.user.id === undefined){
         console.error("user_id_not_valid");
         return;
     }
-    if (id === undefined){
+    if (res.body.id === undefined){
         console.error("data_not_valid");
         return;
     }
@@ -28,22 +27,25 @@ module.exports = function (req,res){
                 "FROM pms.users " +
                 "JOIN pms.projects " +
                 "WHERE user.id = ? " +
-                "ORDER BY users.display_name",[id],function(err,result) {
+                "ORDER BY users.display_name",[res.body.id],function(err,result) {
                 if (err){
                     console.error(err);
                     return;
                 }
+
+                var paket = [];
+
                 result.forEach (function(item){
-                    var paket = {
+                    resPaket.push({
                         name : item.display_name,
                         avatar : item.avatar
-                    };
-                    res.send(paket);
-                })
-            });
+                    });
+                });
+            res.send(paket);
+        });
 
         connection.release();
 
     });
 
-}
+};
