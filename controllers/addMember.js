@@ -4,7 +4,7 @@
 
 var mysql = require('../config/database');
 
-module.exports = function (res, req){
+module.exports = function (req, res){
 
     if (!(req.user.id && req.body.project_id)){
         console.error("data_not_valid");

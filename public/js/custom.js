@@ -1,7 +1,7 @@
 var pms = angular.module('pms', []);
 
 pms.factory('OpenTabs', function(){
-    return {tabs: []}
+    return {tabs: [], currentId: -1, currentIndex: -1}
 });
 
 pms.controller('projectListController', function ($scope, $http, OpenTabs) {
@@ -45,6 +45,8 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
                     });
 
                     $scope.tabs.push(temp);
+                    OpenTabs.currentId = index;
+                    OpenTabs.currentIndex = $scope.tabs.length-1;
                 }
             });
 
@@ -59,13 +61,44 @@ pms.controller('tabsController', function($scope, OpenTabs){
         $scope.removeTab=function(index) {
             $scope.tabs.splice(index,1);
 
-            if($scope.tabs.length-1 > index && $scope.tabs.length > 0)
-                $scope.tabs[index+1].active = true;
+            if($scope.tabs.length-1 > index && $scope.tabs.length > 0) {
+                $scope.tabs[index + 1].active = true;
+                OpenTabs.currentIndex = index+1;
+                OpenTabs.currentId = $scope.tabs[index+1].id;
+            }
 
-            if($scope.tabs.length-1 < index && $scope.tabs.length > 0)
+            if($scope.tabs.length-1 < index && $scope.tabs.length > 0){
                 $scope.tabs[index-1].active = true;
+                OpenTabs.currentIndex = index-1;
+                OpenTabs.currentId = $scope.tabs[index-1].id;
+            }
+
+        }
+
+        $scope.changeTab = function(id, index){
+            OpenTabs.currentId = id;
+            OpenTabs.currentIndex = index;g;
         }
     });
+});
+
+pms.controller('taskModalController', function($scope, $http, OpenTabs){
+    $scope.name = '';
+    $scope.description = '';
+    $scope.tabs = OpenTabs.tabs;
+
+    $scope.sendData = function(){
+        $http.post('/addTask', {name: $scope.name, description: $scope.description, projectId: OpenTabs.currentId}).success(function(){
+            $http.post('/getTasks', {projectId: OpenTabs.currentId}).success(function (data){
+                var temp = [];
+                data.forEach(function (datum){
+                    temp.push(datum);
+                });
+
+                OpenTabs.tabs[OpenTabs.currentIndex].tasks = temp;
+            });
+        });
+    }
 });
 
 // jQuery ######################################################################

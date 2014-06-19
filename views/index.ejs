@@ -67,7 +67,7 @@
                         <label class="col-lg-4 control-label">Description:</label>
 
                         <div class="col-lg-8">
-                            <textarea rows="5" cols="50" class="form-control" name="ProjectDescription"
+                            <textarea rows="5" cols="50" class="form-control" name="projectDescription"
                                       maxlength="512"></textarea>
                         </div>
                     </div>
@@ -75,7 +75,45 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="saveProfile" class="btn btn-primary">Create project</button>
+                <button type="button" id="createProject" class="btn btn-primary">Create project</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New task Modal -->
+<div class="modal fade" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="newTaskModalLabel"
+     aria-hidden="true" ng-controller="taskModalController">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">New task</h4>
+            </div>
+            <div class="modal-body" id="newTaskModalBody">
+                <form class="form-horizontal" role="form">
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Name:</label>
+
+                        <div class="col-md-9">
+                            <input ng-model="name" class="form-control" id="taskName" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Description:</label>
+
+                        <div class="col-lg-8">
+                            <textarea ng-model="description" id="taskDescription" rows="5" cols="50" class="form-control"
+                                      name="taskDescription"
+                                      maxlength="512"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addTask" class="btn btn-primary" ng-click="sendData()">Add task</button>
             </div>
         </div>
     </div>
@@ -104,7 +142,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="saveProfile" class="btn btn-primary">Add</button>
+                <button type="button" id="addCollaborator" class="btn btn-primary">Add</button>
             </div>
         </div>
     </div>
@@ -133,7 +171,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="saveProfile" class="btn btn-primary">Delegate</button>
+                <button type="button" id="addDelegate" class="btn btn-primary">Delegate</button>
             </div>
         </div>
     </div>
@@ -144,7 +182,7 @@
     <!-- <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0"> -->
     <div class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
-            <img src="/img/logo.png" />
+            <img src="/img/logo.png"/>
             <ul class="nav" id="side-menu" ng-controller="projectListController">
                 <li ng-repeat="project in projects">
                     <a href="javascript:;" ng-click="doStuff(project.id)"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
@@ -178,17 +216,19 @@
 
         <div class="row">
             <div class="col-lg-12">
-<!--                 <div class="tabbable">
-                    <ul class="nav nav-tabs" ng-controller="projectListController">
-                        <li ng-repeat="project in projects">
-                            <a href="#p{{project.id}}" data-toggle="tab"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
-                        </li>
-                    </ul>
-                </div> -->
+                <!--                 <div class="tabbable">
+                                    <ul class="nav nav-tabs" ng-controller="projectListController">
+                                        <li ng-repeat="project in projects">
+                                            <a href="#p{{project.id}}" data-toggle="tab"><i class="fa fa-tasks fa-fw"></i>{{project.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div> -->
                 <div class="tabbable">
                     <ul class="nav nav-tabs" ng-controller="tabsController" id="moooj">
                         <li ng-repeat="tab in tabs" ng-class="{active: tab.active}">
-                           <a  href='#t{{tab.id}}' data-toggle="tab">{{tab.title}} <i ng-click="removeTab($index)" class="glyphicon glyphicon-remove"></i></a>
+                            <a href='#t{{tab.id}}' data-toggle="tab" ng-click="changeTab(tab.id, $index)">{{tab.title}}
+                                <i ng-click="removeTab($index)"
+                                   class="glyphicon glyphicon-remove"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -208,7 +248,9 @@
                                         <h4>Collaborators</h4>
 
                                         <div class="row">
-                                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#collaboratorModal">+</button>
+                                            <button type="button" class="btn btn-default" data-toggle="modal"
+                                                    data-target="#collaboratorModal">+
+                                            </button>
                                             <img src="http://localhost:3000/user_data/1/avatar.png"
                                                  class="avatar img-thumbnail"/>
                                             <img src="http://png-1.findicons.com/files/icons/1072/face_avatars/300/i04.png"
@@ -223,47 +265,61 @@
                                         <div class="panel-body">
                                             <div class="col-lg-3">
                                                 <ul class="nav nav-pills nav-stacked">
-                                                    <li ng-repeat="task in tab.tasks" ng-class="{active: $first}"><a href="#task{{task.id}}" data-toggle="tab">{{task.name}}</a></li>
+                                                    <li ng-repeat="task in tab.tasks" ng-class="{active: $first}"><a
+                                                                href="#task{{task.id}}"
+                                                                data-toggle="tab">{{task.name}}</a></li>
 
-                                                    <li><a href="javascript:;">+ New task</a></li>
+                                                    <li><a href="javascript:;" data-toggle="modal"
+                                                           data-target="#newTaskModal">+ New task</a></li>
                                                 </ul>
                                             </div>
                                             <div class="tab-content col-lg-9">
-                                                        <div class="col-lg-7 tab-pane fade" ng-repeat="task in tab.tasks" ng-class="{active: $first, in: $first}" id="task{{task.id}}">
-                                                            <h4>{{task.name}}</h4>
+                                                <div class="col-lg-12 tab-pane fade" ng-repeat="task in tab.tasks"
+                                                     ng-class="{active: $first, in: $first}" id="task{{task.id}}">
+                                                    <div class="col-lg-7">
+                                                        <h4>{{task.name}}</h4>
 
-                                                            <p>{{task.description}}</p>
+                                                        <p>{{task.description}}</p>
 
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <div class="checkbox">
-                                                                        <h4>
-                                                                            <input type="checkbox"> Finished
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <h4><strong>Deadline:</strong> {{task.deadline}}</h4>
-                                                                    <h4><strong>Date complete:</strong></h4>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="checkbox">
+                                                                    <h4>
+                                                                        <input type="checkbox"> Finished
+                                                                    </h4>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <img ng-repeat="delegate in task.delegates" src="{{delegate.avatar}}" alt="{{delegate.displayName}}" class="avatar-small img-thumbnail"/>
-                                                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#delegateModal">+</button>
-                                                                </div>
+                                                            <div class="col-lg-6">
+                                                                <h4><strong>Deadline:</strong> {{task.deadline}}</h4>
+                                                                <h4><strong>Date complete:</strong></h4>
                                                             </div>
                                                         </div>
-                                                    <div class="col-lg-5">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <img ng-repeat="delegate in task.delegatedTo"
+                                                                     src="{{delegate.avatar}}"
+                                                                     alt="{{delegate.displayName}}"
+                                                                     class="avatar-small img-thumbnail"/>
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-toggle="modal"
+                                                                        data-target="#delegateModal">+
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-5" ng-if="task">
                                                         <form class="form-inline" role="form">
                                                             <div class="form-group">
-                                                                <input class="form-control" type="text" placeholder="Your comments" />
+                                                                <input class="form-control" type="text"
+                                                                       placeholder="Your comments"/>
                                                             </div>
                                                             <div class="form-group">
                                                                 <button class="btn btn-default">Add</button>
                                                             </div>
                                                         </form>
                                                     </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

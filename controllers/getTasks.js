@@ -3,7 +3,6 @@ var mysql = require("../config/database");
 
 module.exports = function (req, res) {
 
-    var id = req.body.id;
     if (req.user.id === undefined) {
         console.error("user_id_not_valid");
         return;
@@ -56,13 +55,9 @@ module.exports = function (req, res) {
                 });
 
                 res.send(responseData);
+                connection.release();
             });
-
-            connection.release();
-
         });
-
-        connection.release();
 
     });
 
