@@ -26,22 +26,31 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
                    }
                 });
                 if(n==false) {
-                    setActiveFalse($scope.tabs);
-                    $scope.tabs.push({
+					setActiveFalse($scope.tabs);
+                    var temp = {
                         title: data.name,
                         id: data.id,
                         description: data.description,
-                        active: true
+						active: true,
+                        tasks: []
+                    };
+
+                    $http.post('/getTasks', {projectId: index}).success(function (data){
+                        console.log(data);
+                        data.forEach(function (datum){
+                            temp.tasks.push(datum);
+                        });
+
+                        console.log(temp);
                     });
+
+                    $scope.tabs.push(temp);
                 }
             });
 
         }
-
     });
 });
-
-
 
 pms.controller('tabsController', function($scope, OpenTabs){
     angular.element(document).ready(function () {
@@ -49,7 +58,12 @@ pms.controller('tabsController', function($scope, OpenTabs){
 
         $scope.removeTab=function(index) {
             $scope.tabs.splice(index,1);
-            $scope.tabs[index-1].active = true;
+
+            if($scope.tabs.length-1 > index && $scope.tabs.length > 0)
+                $scope.tabs[index+1].active = true;
+
+            if($scope.tabs.length-1 < index && $scope.tabs.length > 0)
+                $scope.tabs[index-1].active = true;
         }
     });
 });
