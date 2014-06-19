@@ -6,7 +6,7 @@ module.exports = function(res,req){
         console.error("user_id_not_valid");
         return;
     }
-    if (!req.body.projectId){
+    if (!req.body.taskData){
         console.error("data_not_valid");
         return;
     }
@@ -17,9 +17,14 @@ module.exports = function(res,req){
             return;
         }
 
+        var taskId = req.body.taskData.id;
+        var name = req.body.taskData.name;
+        var description = req.body.taskData.description;
+        var isFinished = req.body.taskData.isFinished;
+        var deadline = req.body.taskData.deadline;
 
-        connection.query("INSERT INTO pms.tasks (id, name, create_time, deadline, is_finished, description, project_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            [null, '', 'CURRENT_TIME', null, false, '', req.body.projectId] ,function(err, result){
+        connection.query("UPDATE pms.tasks SET name=?, description=?, is_finished=?, deadline=? WHERE id=?",
+            [name, description, isFinished, deadline, taskId] ,function(err, result){
                 if(err){
                     console.error(err);
                     return;
@@ -27,14 +32,14 @@ module.exports = function(res,req){
                 if(result.rowsAffected > 0){
                     var paket_s = {
                         status : true,
-                        message: "insert_successful"
+                        message: "update_successful"
                     };
                     res.send(paket_s);
                 }
                 else{
                     var paket_n = {
                         status : false,
-                        message : "insert_unsuccessful"
+                        message : "update_unsuccessful"
                     };
                     res.send(paket_n);
                 }
