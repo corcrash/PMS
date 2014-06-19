@@ -2,11 +2,7 @@ var mysql = require('../config/database');
 
 module.exports = function(res,req){
 
-    if (req.user.id === undefined){
-        console.error("user_id_not_valid");
-        return;
-    }
-    if (!req.body.taskId){
+    if (!(req.user.id && req.body.taskId)){
         console.error("data_not_valid");
         return;
     }
@@ -17,9 +13,8 @@ module.exports = function(res,req){
             return;
         }
 
-        var taskId = req.body.taskId;
-
-        connection.query("DELETE FROM pms.tasks WHERE id=?", [taskId] ,function(err, result){
+        connection.query("DELETE * FROM pms.tasks WHERE id=?", [req.body.taskId],
+            function(err, result){
                 if(err){
                     console.error(err);
                     return;

@@ -8,16 +8,8 @@ var mysql = require("../config/database");
 
 module.exports = function(req,res){
 
-    if (req.user.id === undefined){
-        console.error("user_id_not_valid");
-        return;
-    }
-
-    var comment_id = req.body.comment_id;
-    var text =  req.body.text;
-
-    if (comment_id === undefined){
-        console.error(err);
+    if (!(req.user.id && req.body.commnetId && req.body.text)){
+        console.error("data_not_valid");
         return;
     }
 

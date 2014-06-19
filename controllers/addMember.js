@@ -6,11 +6,7 @@ var mysql = require('../config/database');
 
 module.exports = function (res, req){
 
-    if (req.user.id === undefined){
-        console.error("user_id_not_valid");
-        return;
-    }
-    if (!(req.body.user_id && req.body.project_id)){
+    if (!(req.user.id && req.body.project_id)){
         console.error("data_not_valid");
         return;
     }
@@ -21,7 +17,7 @@ module.exports = function (res, req){
            return;
        }
        connection.query("INSERT pms.user_works_on_project (user_works_on_project.user_id," +
-               "user_works_on_project.project_id) VALUES ?",[req.body.user_id, req.body.project_id],
+               "user_works_on_project.project_id) VALUES ?",[req.user.id, req.body.project_id],
                 function(err,result){
                     if (err){
                         console.error(err);

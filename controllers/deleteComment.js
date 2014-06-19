@@ -9,14 +9,8 @@ var mysql = require ('../config/database');
 
 module.exports = function(req,res){
 
-    if (req.user.id === undefined){
-        console.error("user_id_not_valid");
-        return;
-    }
-
-    var comment_id = req.body.comment_id;
-    if (comment_id === undefined){
-        console.error("comment_id_not_recieved");
+    if (!(req.user.id && req.body.commentId)){
+        console.error("data_not_valid");
         return;
     }
 
@@ -26,7 +20,7 @@ module.exports = function(req,res){
             return;
         }
         connection.query("DELETE * FROM pms.comment" +
-            "WERE id = ?",[comment_id],function (err,result){
+            "WERE id = ?",[req.body.commentId],function (err,result){
             if (err)
             {
                 console.error("query_failure_comment_delete");

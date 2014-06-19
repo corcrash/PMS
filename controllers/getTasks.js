@@ -18,7 +18,10 @@ module.exports = function (req, res) {
             console.error(err);
             return;
         }
-        connection.query("SELECT * FROM pms.tasks WHERE id IN (SELECT task_id FROM pms.user_has_task WHERE user_id = ?)", [id], function (err, result) {
+        connection.query("SELECT * FROM pms.tasks " +
+            "WHERE id IN " +
+            "(SELECT task_id FROM pms.user_has_task " +
+            "WHERE user_id = ?)", [id], function (err, result) {
             if (err) {
                 console.error(err);
                 return;

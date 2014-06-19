@@ -13,10 +13,6 @@ module.exports = function (req,res){
         console.error("user_id_not_valid");
         return;
     }
-    if (res.body.id === undefined){
-        console.error("data_not_valid");
-        return;
-    }
 
     mysql.getConnection(function(err,connection){
         if (err){
@@ -27,7 +23,7 @@ module.exports = function (req,res){
                 "FROM pms.users " +
                 "JOIN pms.projects " +
                 "WHERE user.id = ? " +
-                "ORDER BY users.display_name",[res.body.id],function(err,result) {
+                "ORDER BY users.display_name",[res.user.id],function(err,result) {
                 if (err){
                     console.error(err);
                     return;
@@ -36,7 +32,7 @@ module.exports = function (req,res){
                 var paket = [];
 
                 result.forEach (function(item){
-                    resPaket.push({
+                    paket.push({
                         name : item.display_name,
                         avatar : item.avatar
                     });
