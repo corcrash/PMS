@@ -26,17 +26,22 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
                    }
                 });
                 if(n==false) {
+                    setActiveFalse($scope.tabs);
                     $scope.tabs.push({
                         title: data.name,
                         id: data.id,
-                        description: data.description
+                        description: data.description,
+                        active: true
                     });
                 }
             });
 
         }
+
     });
 });
+
+
 
 pms.controller('tabsController', function($scope, OpenTabs){
     angular.element(document).ready(function () {
@@ -44,6 +49,7 @@ pms.controller('tabsController', function($scope, OpenTabs){
 
         $scope.removeTab=function(index) {
             $scope.tabs.splice(index,1);
+            $scope.tabs[index-1].active = true;
         }
     });
 });
@@ -107,3 +113,8 @@ function showProfileModal() {
     $("#profileModal").modal({keyboard: true});
 }
 
+function setActiveFalse(tabs) {
+    angular.forEach(tabs, function(tab) {
+        tab.active=false;
+    })
+}
