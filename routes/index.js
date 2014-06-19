@@ -8,6 +8,8 @@ var getProject = require('../controllers/getProject');
 var uploadAvatar = require('../controllers/uploadAvatar');
 var getTasks = require('../controllers/getTasks');
 var addTask = require('../controllers/addTask');
+var updateTask = require('../controllers/updateTask');
+var deleteTask = require('../controllers/deleteTask');
 var getComments = require('../controllers/getComment');
 
 /* GET home page. */
@@ -66,11 +68,19 @@ router.post('/uploadAvatar', function (req, res) {
 
 router.post('/getTasks', function(req, res){
     getTasks(req, res);
-})
+});
 
 router.post('/addTask', function(req, res){
     addTask(req, res);
-})
+});
+
+router.post('/updateTask', function(req, res){
+    updateTask(req, res);
+});
+
+router.post('/deleteTask', function(req, res){
+    deleteTask(req, res);
+});
 
 // Funkcija koja proverava da li je korisnik ulogovan
 function isLoggedIn(req, res, next) {
