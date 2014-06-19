@@ -58,7 +58,12 @@ pms.controller('tabsController', function($scope, OpenTabs){
 
         $scope.removeTab=function(index) {
             $scope.tabs.splice(index,1);
-            $scope.tabs[index-1].active = true;
+
+            if($scope.tabs.length-1 > index && $scope.tabs.length > 0)
+                $scope.tabs[index+1].active = true;
+
+            if($scope.tabs.length-1 < index && $scope.tabs.length > 0)
+                $scope.tabs[index-1].active = true;
         }
     });
 });
@@ -122,3 +127,8 @@ function showProfileModal() {
     $("#profileModal").modal({keyboard: true});
 }
 
+function setActiveFalse(tabs) {
+    angular.forEach(tabs, function(tab) {
+        tab.active=false;
+    })
+}
