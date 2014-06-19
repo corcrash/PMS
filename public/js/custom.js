@@ -18,13 +18,20 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
             //vraca index kliknutog elementa iz levog bara
             console.log("Tabs: " + $scope.tabs);
             $http.post('/getProject', {projectId:index}).success(function (data) {
-//                $scope.project = data;
-
-                $scope.tabs.push( {
-                    title: data.name,
-                    id: data.id,
-                    description: data.description
+//               $scope.project = data;
+                var n=false;
+                angular.forEach($scope.tabs, function (value,key) {
+                   if(value.id == index) {
+                       n=true;
+                   }
                 });
+                if(n==false) {
+                    $scope.tabs.push({
+                        title: data.name,
+                        id: data.id,
+                        description: data.description
+                    });
+                }
             });
 
         }
