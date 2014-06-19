@@ -23,7 +23,7 @@ module.exports = function(res,req){
 
         connection.query("INSERT INTO pms.comments (comments.text,comments.user_id, " +
             "comments.task_id, comments.task_project_id VALUES",[req.body.commentText,
-            req.body.user_id, req.body.task_id, req.body.project_id],function(err, result){
+            req.user.id, req.body.task_id, req.body.project_id],function(err, result){
                 if(err){
                     console.error(err);
                     return;
@@ -43,7 +43,7 @@ module.exports = function(res,req){
                     res.send(paket_n);
                 }
 
-            })
+            });
         connection.release();
     })
 

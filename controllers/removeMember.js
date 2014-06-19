@@ -6,11 +6,7 @@ var mysql = require ('../config/database');
 
 module.exports = function (req,res){
 
-    if (req.user.id === undefined){
-        console.error("user_id_not_valid");
-        return;
-    }
-    if (!(req.body.user_id && req.body.project_id)){
+    if (!(req.user.id && req.body.user_id && req.body.project_id)){
         console.error("data_not_valid");
         return;
     }
