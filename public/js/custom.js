@@ -20,16 +20,18 @@ pms.controller('projectListController', function ($scope, $http, OpenTabs) {
             $http.post('/getProject', {projectId:index}).success(function (data) {
 //               $scope.project = data;
                 var n=false;
-                angular.forEach($scope.tabs, function (value, key) {
+                angular.forEach($scope.tabs, function (value,key) {
                    if(value.id == index) {
                        n=true;
                    }
                 });
                 if(n==false) {
+					setActiveFalse($scope.tabs);
                     var temp = {
                         title: data.name,
                         id: data.id,
                         description: data.description,
+						active: true,
                         tasks: []
                     };
 
@@ -56,6 +58,7 @@ pms.controller('tabsController', function($scope, OpenTabs){
 
         $scope.removeTab=function(index) {
             $scope.tabs.splice(index,1);
+            $scope.tabs[index-1].active = true;
         }
     });
 });

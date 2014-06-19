@@ -27,7 +27,7 @@ module.exports = function (req,res){
                 }
                 //provera da li je update uspesan! - dodato 18.06
 
-                if (result[0]){
+                if (result.affectedRows > 0){
                     var s_status= {
                         status: true,
                         message: "project_update_successful"

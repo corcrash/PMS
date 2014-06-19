@@ -10,8 +10,7 @@ module.exports = function(res,req){
         console.error("user_id_not_valid");
         return;
     }
-    if (!(req.body.commentText && req.body.user_id &&
-        req.body.task_id && req.body.task_project_id)){
+    if (!(req.body.commentText && req.body.task_id && req.body.project_id)){
         console.error("data_not_valid");
         return;
     }
@@ -21,22 +20,15 @@ module.exports = function(res,req){
             console.error(err);
             return;
         }
-    var queryPaket = {
-        text: req.body.commentText,
-        user_id : req.body.user_id,
-        task_id : req.body.task_id,
-        task_project_id : "SELECT task.project_id" +
-                          "FROM pms.task" +
-                          "WHERE task_id ="+
-                          req.body.task_id
-    };
-        connection.query("INSERT INTO pms.comments SET"+
-        connection.escape(queryPaket),function(err, result){
+
+        connection.query("INSERT INTO pms.comments (comments.text,comments.user_id, " +
+            "comments.task_id, comments.task_project_id VALUES",[req.body.commentText,
+            req.body.user_id, req.body.task_id, req.body.project_id],function(err, result){
                 if(err){
                     console.error(err);
                     return;
                 }
-                if(result){
+                if(result.affectedRows > 0){
                     var paket_s = {
                         status : true,
                         message: result[0]
@@ -52,6 +44,7 @@ module.exports = function(res,req){
                 }
 
             })
+        connection.release();
     })
 
 };

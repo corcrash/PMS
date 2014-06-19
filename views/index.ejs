@@ -186,8 +186,8 @@
                     </ul>
                 </div> -->
                 <div class="tabbable">
-                    <ul class="nav nav-tabs" ng-controller="tabsController">
-                        <li ng-repeat="tab in tabs">
+                    <ul class="nav nav-tabs" ng-controller="tabsController" id="moooj">
+                        <li ng-repeat="tab in tabs" ng-class="{active: tab.active}">
                            <a  href='#t{{tab.id}}' data-toggle="tab">{{tab.title}} <i ng-click="removeTab($index)" class="glyphicon glyphicon-remove"></i></a>
                         </li>
                     </ul>
@@ -197,7 +197,7 @@
                 <!-- sadrzaj -->
 
                 <div class="tab-content" ng-controller="tabsController">
-                    <div ng-repeat="tab in tabs" class="tab-pane" id='t{{tab.id}}'>
+                    <div ng-repeat="tab in tabs" class="tab-pane" id='t{{tab.id}}' ng-class="{active: tab.active}">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="row">
